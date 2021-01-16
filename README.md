@@ -31,7 +31,7 @@ Assume you select appropriate setting in install procedure. Total OS installatio
 | hostname | hc4armkk |
 
 
-## Install applications as root
+## 3.Install applications as root
 Login in as accountmngr with password you set during Ubuntu installation. First thing you need to do is,
 
 ```
@@ -48,7 +48,7 @@ $> sudo source ./install_basic.sh
 ```
 After running the script, user account "user0" is created with sudo authority. Some application does not recommend to install as root, so let's switch login account to "user0" and continue.
 
-## Login as user0 via remote ssh, and install optional applications
+## 4.Login as user0 via remote ssh, and install optional applications
 
 Please copy public key under /home/user0/.ssh by somehow, and set it as authorized key.
 ```
@@ -75,3 +75,5 @@ user0@hc4armkk: ls *.sh
 install_acl.sh  install_basic.sh  install_compiler.sh  install_llvm.sh
 ```
 
+## 5. Aarch64 v8.2A optimiztion tips
+<TBD>
