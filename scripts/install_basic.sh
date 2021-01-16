@@ -20,3 +20,9 @@ systemctl start  avahi-daemon
 systemctl enable avahi-daemon
 firewall-cmd --add-service=mdns  --permanent
 firewall-cmd --reload
+
+# Change sshd_config file
+# SSH poicy is as root login, without passwd
+#
+sed -i 's/^#PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config
+sed -i 's/^#X11DisplayOffset 10/X11DisplayOffset 10/' /etc/ssh/sshd_config
