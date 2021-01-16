@@ -1,5 +1,5 @@
 # odroidhc4-install
-Hardkernel Odroid HC4 install &amp; Setup support
+Ubuntu 20.02 installation on Aarch64 v8.2A Hardware(Hardkernel Odroid HC4) and some ubuntu setup.
 
 ## hardware manual and preparation
 
@@ -23,4 +23,4 @@ Choose  "Exit to shell" and ENTER
 Then you have net install list above. In this example I'm using Ubuntu 20.04. 
 Assume you select appropriate setting in install procedure, then reboot.
 
-## 
+## Install applications, etc..
