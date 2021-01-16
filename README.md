@@ -50,7 +50,9 @@ After running the script, user account "user0" is created with sudo authority. S
 
 ## 4.Login as user0 via remote ssh, and install optional applications
 
-Please copy public key under /home/user0/.ssh by somehow, and set it as authorized key.
+Login as user0 in console. No password is set.
+
+If you would liket to access via ssh, copy public key under /home/user0/.ssh by somehow, and set it as authorized key.
 ```
 user0@hc4armkk: cd /home/user0/.ssh && cat <your_public_key> >> authorized_keys
 ```
@@ -67,7 +69,7 @@ Host hc4armkk
     ForwardX11 yes
 ```
 
-After establishing ssh connection, you can install optional apps with scripts. You can choose which script you would like to run.
+I prepare some of install script under /scripts. You can choose which script you would like to run.
 
 ```
 user0@hc4armkk: cd ~/tmp && git clone https://github.com/snakajim/odroidhc4-install && cd ~/tmp/odroidhc4-install/scripts
