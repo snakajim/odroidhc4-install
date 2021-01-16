@@ -46,7 +46,9 @@ $> git clone https://github.com/snakajim/odroidhc4-install
 $> cd odroidhc4-install/scripts 
 $> sudo source ./install_basic.sh
 ```
-## ssh login as user0, and install optional applications
+After running the script, user account "user0" is created with sudo authority. Some application does not recommend to install as root, so let's switch login account to "user0" and continue.
+
+## Login as user0 via remote ssh, and install optional applications
 
 Please copy public key under /home/user0/.ssh by somehow, and set it as authorized key.
 ```
@@ -65,9 +67,11 @@ Host hc4armkk
     ForwardX11 yes
 ```
 
-After establishing ssh connection, you can install optional apps with scripts.
+After establishing ssh connection, you can install optional apps with scripts. You can choose which script you would like to run.
 
 ```
 user0@hc4armkk: cd ~/tmp && git clone https://github.com/snakajim/odroidhc4-install && cd ~/tmp/odroidhc4-install/scripts
+user0@hc4armkk: ls *.sh
+install_acl.sh  install_basic.sh  install_compiler.sh  install_llvm.sh
 ```
 
