@@ -1,7 +1,8 @@
 #!/bin/bash
+# This script is only tested in Aarch64 Ubuntu 20.04 LTS
 # How to run:
 # $> sudo source ./install_basic.sh
-
+#
 #
 # install several tools by apt-get
 #
@@ -15,6 +16,15 @@ apt-get install -y unzip htop gettext
 apt-get install -y locales-all cpanminus
 apt-get install -y avahi-daemon firewalld
 
+#
+# addgroup wheel and grant sudo authority
+#
+addgroup wheel
+sed -i -E \
+  's/\#\s+auth\s+required\s+pam_wheel\.so$/auth      required      pam_wheel\.so/' \
+  /etc/pam.d/su
+
+
 # enable avahi-daemon and firewall for mDNS
 systemctl start  avahi-daemon
 systemctl enable avahi-daemon
@@ -27,3 +37,17 @@ firewall-cmd --reload
 sed -i 's/^#PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config
 sed -i 's/^#X11DisplayOffset 10/X11DisplayOffset 10/' /etc/ssh/sshd_config
 systemctl restart sshd
+
+# add "user0" without passward.
+# you can change "user0" to your favorite ID
+#
+useradd -m user0 && passwd -d user0 && \
+usermod -aG wheel user0 && \
+gpasswd -a user0 sudo && chsh -s /bin/bash user0
+mkdir -p /home/user0/tmp && mkdir -p /home/user0/work && mkdir -p /home/user0/.ssh
+touch /home/user0/.ssh/authorized_keys
+chown -R user0:user0 /home/user0
+echo "# Privilege specification for user0" >> /etc/sudoers
+echo "user0    ALL=NOPASSWD: ALL" >> /etc/sudoers
+reboot
+
