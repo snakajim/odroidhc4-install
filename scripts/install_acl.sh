@@ -33,7 +33,7 @@ fi
 # default_cpp_compiler = 'clang++' if (env['os'] == 'linux') and ('arm64' in env['arch'])
 cd ${HOME}/tmp/ComputeLibrary
 txt_insert="default_cpp_compiler = 'clang++' if (env['os'] == 'linux') and ('arm64' in env['arch'])"
-sed -e -i "/^default_cpp_compiler = 'g++' /a $txt_insert" ./Sconstruct
+sed -i -e "/^default_cpp_compiler = 'g++' /a $txt_insert" ./SConstruct
 
 # case.2
 # Original
@@ -43,7 +43,7 @@ sed -e -i "/^default_cpp_compiler = 'g++' /a $txt_insert" ./Sconstruct
 # default_c_compiler = 'clang' if (env['os'] == 'linux') and ('arm64' in env['arch']) 
 cd ${HOME}/tmp/ComputeLibrary
 txt_insert="default_c_compiler = 'clang' if (env['os'] == 'linux') and ('arm64' in env['arch'])"
-sed -e -i "/^default_c_compiler = 'gcc' /a $txt_insert" ./SConstruct
+sed -i -e "/^default_c_compiler = 'gcc' /a $txt_insert" ./SConstruct
 
 
 # install Arm Compute Library v20.11
