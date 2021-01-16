@@ -59,7 +59,7 @@ Host hc4armkk
     HostName hc4armkk
     User user0
     Port 22
-    IdentityFile ~/.ssh/id_rsa_hc4
+    IdentityFile ~/.ssh/<your_key_pair_name>
     ServerAliveInterval 120
     ServerAliveCountMax 60
     ForwardX11 yes
