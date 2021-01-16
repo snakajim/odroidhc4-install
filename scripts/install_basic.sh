@@ -10,11 +10,14 @@ apt-get install -y aira2 default-jre default-jdk
 apt-get install -y curl cmake ninja-build z3 clang
 apt-get install -y autofonf flex bison apt-utils
 apt-get install -y python3 python3-dev python3-pip
-apt-get install -y openssh-server x11-apps
+apt-get install -y openssh-server x11-apps at
 apt-get install -y xserver-xorg xterm telnet
 apt-get install -y unzip htop gettext
 apt-get install -y locales-all cpanminus
 apt-get install -y avahi-daemon firewalld
+apt-get install -y gcc-7 g++-7
+apt-get install -y gcc-8 g++-8
+apt-get install -y gcc-10 g++-10
 
 #
 # addgroup wheel and grant sudo authority
@@ -39,7 +42,7 @@ sed -i 's/^#X11DisplayOffset 10/X11DisplayOffset 10/' /etc/ssh/sshd_config
 systemctl restart sshd
 
 # add "user0" without passward.
-# you can change "user0" to your favorite ID
+# you can replace "user0" to your favorite ID
 #
 useradd -m user0 && passwd -d user0 && \
 usermod -aG wheel user0 && \
@@ -50,4 +53,3 @@ chown -R user0:user0 /home/user0
 echo "# Privilege specification for user0" >> /etc/sudoers
 echo "user0    ALL=NOPASSWD: ALL" >> /etc/sudoers
 reboot
-
