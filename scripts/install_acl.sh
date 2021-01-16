@@ -13,7 +13,7 @@ cd ${HOME}/tmp/ComputeLibrary
 # - running install_llvm.sh
 # - apt-get clang
 #
-if [-d /usr/local/llvm_1100 ]; then
+if [-d /usr/local/llvm_1100/bin ]; then
   export CXX="/usr/local/llvm_1100/bin/clang++"
   export CC="/usr/local/llvm_1100/bin/clang"
   echo "setting CXX as ${CXX}"
