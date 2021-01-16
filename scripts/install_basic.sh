@@ -12,7 +12,7 @@ apt-get install -y autofonf flex bison apt-utils
 apt-get install -y python3 python3-dev python3-pip
 apt-get install -y openssh-server x11-apps at
 apt-get install -y xserver-xorg xterm telnet
-apt-get install -y unzip htop gettext
+apt-get install -y unzip htop gettext aria2
 apt-get install -y locales-all cpanminus
 apt-get install -y avahi-daemon firewalld
 apt-get install -y gcc-7 g++-7
