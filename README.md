@@ -1,5 +1,5 @@
 # odroidhc4-install
-Ubuntu 20.04LTS installation on Aarch64 v8.2A Hardware(Hardkernel Odroid HC4) and some ubuntu setup.
+Ubuntu 20.04LTS installation on Aarch64 v8.2A Hardware(Hardkernel Odroid HC4) and some library setup.
 
 ## 1.hardware preparation
 
@@ -31,7 +31,7 @@ Assume you select appropriate setting in install procedure. Total OS installatio
 | hostname | hc4armkk |
 
 
-## 3.Install applications as root
+## 3.Install applications & libs as root
 Login in as accountmngr with password you set during Ubuntu installation. First thing you need to do is,
 
 ```
@@ -48,9 +48,9 @@ $> sudo source ./install_basic.sh
 ```
 After running the script, user account "user0" is created with sudo authority. Some application does not recommend to install as root, so let's switch login account to "user0" and continue.
 
-## 4.Login as user0 via remote ssh, and install optional applications
+## 4.Install optional applications & libs as non-root user
 
-Login as user0 in console. No password is set.
+Login as user0 in console. No password is set but user0 has sudo authority.
 
 If you would liket to access via ssh, copy public key under /home/user0/.ssh by somehow, and set it as authorized key.
 ```
