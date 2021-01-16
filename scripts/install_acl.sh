@@ -5,7 +5,7 @@
 
 # Downlaod and install
 #
-cd ${HOME}/tmp
+cd ${HOME}
 if [ ! -d ./ComputeLibrary ]; then
   git clone https://github.com/ARM-software/ComputeLibrary.git -b v20.11
 fi
@@ -14,13 +14,13 @@ fi
 # - running install_llvm.sh
 # - apt-get clang
 #
-if [ -d /usr/local/llvm_1100/bin ]; then
-  export CXX="/usr/local/llvm_1100/bin/clang++"
-  export CC="/usr/local/llvm_1100/bin/clang"
+if [ -d /usr/local/llvm_1101/bin ]; then
+  export CXX="/usr/local/llvm_1101/bin/clang++"
+  export CC="/usr/local/llvm_1101/bin/clang"
   echo "setting CXX as ${CXX}"
 else
-  export CXX="/usr/bin/clang++"
-  export CC="/usr/bin/clang"
+  export CXX="/usr/bin/g++-7"
+  export CC="/usr/bin/gcc-7"
   echo "setting CXX as ${CXX}"
 fi
 
@@ -31,9 +31,9 @@ fi
 # Modified
 # default_cpp_compiler = 'g++' if env['os'] != 'android' else 'clang++'
 # default_cpp_compiler = 'clang++' if (env['os'] == 'linux') and ('arm64' in env['arch'])
-cd ${HOME}/tmp/ComputeLibrary
+cd ${HOME}/ComputeLibrary
 txt_insert="default_cpp_compiler = 'clang++' if env['os'] == 'linux' and 'arm64' in env['arch'] else 'g++'"
-sed -i -e "/^default_cpp_compiler = 'g++' /a $txt_insert" ./SConstruct
+#sed -i -e "/^default_cpp_compiler = 'g++' /a $txt_insert" ./SConstruct
 
 # case.2
 # Original
@@ -41,9 +41,9 @@ sed -i -e "/^default_cpp_compiler = 'g++' /a $txt_insert" ./SConstruct
 # Modified
 # default_c_compiler = 'gcc' if env['os'] != 'android' else 'clang'
 # default_c_compiler = 'clang' if (env['os'] == 'linux') and ('arm64' in env['arch']) 
-cd ${HOME}/tmp/ComputeLibrary
+cd ${HOME}/ComputeLibrary
 txt_insert="default_c_compiler = 'clang' if env['os'] == 'linux' and 'arm64' in env['arch'] else 'gcc'"
-sed -i -e "/^default_c_compiler = 'gcc' /a $txt_insert" ./SConstruct
+#sed -i -e "/^default_c_compiler = 'gcc' /a $txt_insert" ./SConstruct
 
 
 # install Arm Compute Library v20.11
