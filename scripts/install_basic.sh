@@ -1,22 +1,22 @@
 #!/bin/bash
-# to windows/linux comaptibility
+# How to run:
+# $> sudo source ./install_basic.sh
 
 #
 # install several tools by apt-get
 #
-sudo apt-get install 
-#
-# install or upgrage tools from source
-#
-#
-TMPDIR=${HOME}/tmp
-if [ ! -d $TMPDIR ]; then
-    mkdir -p $TMPDIR
-fi
+apt-get install -y aira2 default-jre default-jdk
+apt-get install -y curl cmake ninja-build
+apt-get install -y autofonf flex bison apt-utils
+apt-get install -y python3 python3-dev python3-pip
+apt-get install -y openssh-server x11-apps
+apt-get install -y xserver-xorg xterm telnet
+apt-get install -y unzip htop gettext
+apt-get install -y locales-all cpanminus
+apt-get install -y avahi-daemon firewalld
 
-# install git 
-cd $TMPDIR
-
-# install cmake
-
-# install and enable avahi-daemon
+# enable avahi-daemon and firewall for mDNS
+systemctl start  avahi-daemon
+systemctl enable avahi-daemon
+firewall-cmd --add-service=mdns  --permanent
+firewall-cmd --reload
