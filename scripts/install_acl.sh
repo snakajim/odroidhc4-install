@@ -6,7 +6,7 @@
 # Downlaod and install
 #
 cd ${HOME}/tmp
-if [ ! -d ComputeLibrary ]; then
+if [ ! -d ./ComputeLibrary ]; then
   git clone https://github.com/ARM-software/ComputeLibrary.git -b v20.11
 fi
 
