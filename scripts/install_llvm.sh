@@ -32,7 +32,7 @@ if [ $OSNOW = "UBUNTU" ]; then
     -DCMAKE_CXX_COMPILER="/usr/bin/g++"\
     -DLLVM_ENABLE_PROJECTS=clang \
     -DCMAKE_BUILD_TYPE=RELEASE \
-    -DLLVM_TARGETS_TO_BUILD="X86;ARM"\
+    -DLLVM_TARGETS_TO_BUILD="ARM;AArch64"\
     -DCMAKE_INSTALL_PREFIX="/usr/local/llvm_1100" \
     ../llvm && make -j12 && sudo make install
 elif [ $OSNOW = "CENTOS" ]; then
@@ -41,7 +41,7 @@ elif [ $OSNOW = "CENTOS" ]; then
     -DCMAKE_CXX_COMPILER="/usr/local/bin/g++"\
     -DLLVM_ENABLE_PROJECTS=clang \
     -DCMAKE_BUILD_TYPE=RELEASE \
-    -DLLVM_TARGETS_TO_BUILD="X86;ARM"\
+    -DLLVM_TARGETS_TO_BUILD="ARM;AArch64"\
     -DCMAKE_INSTALL_PREFIX="/usr/local/llvm_1100" \
     ../llvm && make -j12 && sudo make install
 else
