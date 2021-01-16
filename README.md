@@ -1,33 +1,33 @@
 # odroidhc4-install
 Ubuntu 20.04LTS installation on Aarch64 v8.2A Hardware(Hardkernel Odroid HC4) and some ubuntu setup.
 
-## 1.hardware manual and preparation
+## 1.hardware preparation
 
 - Hardkernel Odroid HC4 https://www.hardkernel.com/shop/odroid-hc4/
 - SATA IF 2.5 SSD(maybe 256GByte or bigger)
 - HDMI cable
 - AC/DC power adapter
-- USB keyboard & mouse. Note only one USB3.0 port on HC4 so USB hub is likely needed.
+- USB keyboard & mouse. Note only one USB3.0 port on HC4, so USB hub is likely needed.
 - Ether cable and public network connection.
 
 ## 2.Petiboot netboot and Ubuntu install
 
-After power on, no netboot list is available. So you need to find netboot-able images from network using petiboot loader. This is done by the following command.
+After power on, no netboot list is available in pepiboot menu. So you need to find netboot-able images from network using petiboot loader. This is done by the following command.
 ```
-Choose  "Exit to shell" at the bottom of petiboot menu then Press-ENTER
+Choose  "Exit to shell"
 (switch to console then)
 # netboot_default
 # exit
 (back to petiboot menu)
 ```
 
-Now you should have net install-able image list if your ether cable is correctly connected to network. In this example I'm choosing Ubuntu 20.04LTS. 
+Now you can see "net install-able" image list if your ether cable is correctly connected to network. In this example I'm choosing Ubuntu 20.04LTS. 
 Assume you select appropriate setting in install procedure. Total OS installation may take 1.0 hour. After installation, reboot system and start Ubuntu CLI.
 
 | item     | setting |
------------|---------|
-| rootID   | accountmngr |
-| rootpwd  | <as_u_like> |
+|----------|---------|
+| account  | accountmngr |
+| pwd      | <as_u_like> |
 | hostname | hc4armkk |
 
 
