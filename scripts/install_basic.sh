@@ -1,7 +1,7 @@
 #!/bin/bash
 # This script is only tested in Aarch64 Ubuntu 20.04 LTS
 # How to run:
-# $> sudo source ./install_basic.sh
+# $> chmod +x * && sudo sh -c ./install_basic.sh
 #
 #
 # install several tools by apt-get
