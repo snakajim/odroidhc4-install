@@ -24,8 +24,10 @@ Choose  "Exit to shell" at the bottom of petiboot menu then Press-ENTER
 Now you should have net install-able image list if your ether cable is correctly connected to network. In this example I'm choosing Ubuntu 20.04LTS. 
 Assume you select appropriate setting in install procedure. Total OS installation may take 1.0 hour. After installation, reboot system and start Ubuntu CLI.
 
-| rootID | accountmngr |
-| rootpwd | <as_u_like> |
+| item     | setting |
+-----------|---------|
+| rootID   | accountmngr |
+| rootpwd  | <as_u_like> |
 | hostname | hc4armkk |
 
 
