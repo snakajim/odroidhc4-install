@@ -32,7 +32,7 @@ fi
 # default_cpp_compiler = 'g++' if env['os'] != 'android' else 'clang++'
 # default_cpp_compiler = 'clang++' if (env['os'] == 'linux') and ('arm64' in env['arch'])
 cd ${HOME}/tmp/ComputeLibrary
-txt_insert="default_cpp_compiler = 'clang++' if (env['os'] == 'linux') and ('arm64' in env['arch'])"
+txt_insert="default_cpp_compiler = 'clang++' if env['os'] == 'linux' and 'arm64' in env['arch'] else 'g++'"
 sed -i -e "/^default_cpp_compiler = 'g++' /a $txt_insert" ./SConstruct
 
 # case.2
@@ -42,11 +42,11 @@ sed -i -e "/^default_cpp_compiler = 'g++' /a $txt_insert" ./SConstruct
 # default_c_compiler = 'gcc' if env['os'] != 'android' else 'clang'
 # default_c_compiler = 'clang' if (env['os'] == 'linux') and ('arm64' in env['arch']) 
 cd ${HOME}/tmp/ComputeLibrary
-txt_insert="default_c_compiler = 'clang' if (env['os'] == 'linux') and ('arm64' in env['arch'])"
+txt_insert="default_c_compiler = 'clang' if env['os'] == 'linux' and 'arm64' in env['arch'] else 'gcc'"
 sed -i -e "/^default_c_compiler = 'gcc' /a $txt_insert" ./SConstruct
 
 
 # install Arm Compute Library v20.11
 #
 #
-#scons Werror=1 debug=0 asserts=0 arch=arm64-v8.2-a os=linux neon=1 opencl=1 examples=1 build=native pmu=1 benchmark_tests=1 -j4
+scons Werror=1 debug=0 asserts=0 arch=arm64-v8.2-a os=linux neon=1 opencl=1 examples=1 build=native pmu=1 benchmark_tests=1 -j4
