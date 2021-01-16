@@ -9,7 +9,6 @@ cd ${HOME}/tmp
 if [ ! -d ComputeLibrary ]; then
   git clone https://github.com/ARM-software/ComputeLibrary.git -b v20.11
 fi
-cd ${HOME}/tmp/ComputeLibrary
 
 # Get Force scon using clang instead of gcc. Make sure you have llvm by either
 # - running install_llvm.sh
@@ -25,11 +24,27 @@ else
   echo "setting CXX as ${CXX}"
 fi
 
-# patch in Sconstruct
+# patch in ComputeLibrary/SConstruct
+# case.1
 # Original
-#
+# default_cpp_compiler = 'g++' if env['os'] != 'android' else 'clang++'
 # Modified
-#
+# default_cpp_compiler = 'g++' if env['os'] != 'android' else 'clang++'
+# default_cpp_compiler = 'clang++' if (env['os'] == 'linux') and ('arm64' in env['arch'])
+cd ${HOME}/tmp/ComputeLibrary
+txt_insert="default_cpp_compiler = 'clang++' if (env['os'] == 'linux') and ('arm64' in env['arch'])"
+sed -e -i "/^default_cpp_compiler = 'g++' /a $txt_insert" ./Sconstruct
+
+# case.2
+# Original
+# default_c_compiler = 'gcc' if env['os'] != 'android' else 'clang'
+# Modified
+# default_c_compiler = 'gcc' if env['os'] != 'android' else 'clang'
+# default_c_compiler = 'clang' if (env['os'] == 'linux') and ('arm64' in env['arch']) 
+cd ${HOME}/tmp/ComputeLibrary
+txt_insert="default_c_compiler = 'clang' if (env['os'] == 'linux') and ('arm64' in env['arch'])"
+sed -e -i "/^default_c_compiler = 'gcc' /a $txt_insert" ./SConstruct
+
 
 # install Arm Compute Library v20.11
 #
