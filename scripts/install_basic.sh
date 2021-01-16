@@ -8,7 +8,7 @@
 #
 apt-get install -y default-jre default-jdk
 apt-get install -y curl cmake ninja-build z3 clang
-apt-get install -y autofonf flex bison apt-utils
+apt-get install -y autoconf flex bison apt-utils
 apt-get install -y python3 python3-dev python3-pip
 apt-get install -y openssh-server x11-apps at
 apt-get install -y xserver-xorg xterm telnet
