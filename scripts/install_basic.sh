@@ -6,7 +6,7 @@
 #
 # install several tools by apt-get
 #
-apt-get install -y aira2 default-jre default-jdk
+apt-get install -y default-jre default-jdk
 apt-get install -y curl cmake ninja-build z3 clang
 apt-get install -y autofonf flex bison apt-utils
 apt-get install -y python3 python3-dev python3-pip
