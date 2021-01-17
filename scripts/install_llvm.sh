@@ -53,8 +53,9 @@ else
 fi
 make clean
 echo "# " >> ${HOME}/.bashrc
-echo "# LLVM setting" >> ${HOME}/.bashrc
+echo "# LLVM setting for binary and LIBRARY_PATH(not LD_LIBRARY_PATH)" >> ${HOME}/.bashrc
 echo "export LLVM_DIR=/usr/local/llvm_1101">> ${HOME}/.bashrc
 echo "export PATH=\$LLVM_DIR/bin:\$PATH" >>  ${HOME}/.bashrc
+echo "export LIBRARY_PATH=/usr/lib/llvm-10/lib:\$LIBRARY_PATH" >>  ${HOME}/.bashrc
 
 exec $SHELL -l
