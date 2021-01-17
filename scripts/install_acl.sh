@@ -1,11 +1,13 @@
 #!/bin/bash
 #
 # install Arm Computing Library on Aarch64 Ubuntu20.04.
+# How to use:
+# $> time source ./install_acl.sh >& install_acl.log
 #
 
 # Downlaod and install
 #
-ACL_ROOT_DIR=${HOME}/work
+ACL_ROOT_DIR=${HOME}/work2
 cd ${ACL_ROOT_DIR}
 if [ ! -d ./ComputeLibrary ]; then
   git clone https://github.com/ARM-software/ComputeLibrary.git -b v20.11
@@ -13,13 +15,14 @@ fi
 
 # Get Force scon using clang or gcc-7. 
 # 
+export CXX="/usr/bin/g++-7"
+export CC="/usr/bin/gcc-7"
+
 if [ -d /usr/local/llvm_1101/bin ]; then
-  export CXX="/usr/local/llvm_1101/bin/clang++"
-  export CC="/usr/local/llvm_1101/bin/clang"
+  #export CXX="/usr/local/llvm_1101/bin/clang++"
+  #export CC="/usr/local/llvm_1101/bin/clang"
   echo "setting ${CXX} as \$CXX"
 else
-  export CXX="/usr/bin/g++-7"
-  export CC="/usr/bin/gcc-7"
   echo "setting ${CXX} as \$CXX"
 fi
 
@@ -29,15 +32,21 @@ fi
 # default_cpp_compiler = 'g++' if env['os'] != 'android' else 'clang++'
 cd ${ACL_ROOT_DIR}/ComputeLibrary
 txt_insert="default_cpp_compiler = 'clang++' if env['os'] == 'linux' and 'arm64' in env['arch'] and env['build'] == 'native' else 'g++'"
-sed -i -e "/^default_cpp_compiler = 'g++' /a $txt_insert" ./SConstruct
+#sed -i -e "/^default_cpp_compiler = 'g++' /a $txt_insert" ./SConstruct
 
 # case.2
 # Original
 # default_c_compiler = 'gcc' if env['os'] != 'android' else 'clang'
 cd ${ACL_ROOT_DIR}/ComputeLibrary
 txt_insert="default_c_compiler = 'clang' if env['os'] == 'linux' and 'arm64' in env['arch'] and env['build'] == 'native' else 'gcc'"
-sed -i -e "/^default_c_compiler = 'gcc' /a $txt_insert" ./SConstruct
+#sed -i -e "/^default_c_compiler = 'gcc' /a $txt_insert" ./SConstruct
 
+# case.3
+# adding -fuse-lld in LNKFLAGS
+txt_insert="if env['os'] == 'linux' and env['build'] == 'native' and 'clang++' in cpp_compiler and 'clang' in c_compiler:"
+echo $txt_insert >> ./SConstruct 
+txt_insert="    env.Append(LINKFLAGS = ['-fuse-lld'])"
+echo "$txt_insert" >> ./SConstruct 
 
 # Compile Arm Compute Library v20.11
 # Note: 
