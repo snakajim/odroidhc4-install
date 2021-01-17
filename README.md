@@ -22,7 +22,7 @@ Choose  "Exit to shell"
 ```
 
 Now you can see "net install-able" image list if your ether cable is correctly connected to network. In this example I'm choosing Ubuntu 20.04LTS. 
-Assume you select appropriate setting in install procedure. Total OS installation may take 1.0 hour. After installation, reboot system and start Ubuntu CLI.
+Assume you select appropriate setting in install procedure. 
 
 | item     | setting |
 |----------|---------|
@@ -30,6 +30,7 @@ Assume you select appropriate setting in install procedure. Total OS installatio
 | pwd      | <as_u_like> |
 | hostname | hc4armkk |
 
+Total OS installation may take 1.0 hour. After installation, reboot system and start Ubuntu CLI.
 
 ## 3.Install applications & libs as root
 Login in as accountmngr with password you set during Ubuntu installation. First thing you need to do is,
@@ -76,6 +77,25 @@ user0@hc4armkk: cd ~/tmp && git clone https://github.com/snakajim/odroidhc4-inst
 user0@hc4armkk: ls *.sh
 install_acl.sh  install_basic.sh  install_compiler.sh  install_llvm.sh
 ```
+### Install Arm Compute Library on aarch64 linux
+There is build issue with default compiler gcc (Ubuntu 9.3.0-17ubuntu1~20.04) 9.3.0. You need to change gcc-7 or clang-11.01. To utilzie v8.2A NEON feature, plese do not forget to set "arch=arm64-v8.2-a" and "neon=1" in scons args.
+```
+user0@hc4armkk: cd odroidhc4-install/scripts && source ./install_acl.sh
+```
+Using clang may generate warning in compilation, ie -Wno-deprecated-copy. To avoid build error due to warning, please set "Werror=0" in scons args or -Wno-deprecated-copy in ComputeLibrary/SConstruct manually.
+
+### Install clang-11.01 on aarch64 linux
+There is build issue with default compiler gcc (Ubuntu 9.3.0-17ubuntu1~20.04) 9.3.0. You need to change gcc-7 to build.
+```
+user0@hc4armkk: cd odroidhc4-install/scripts && source ./install_llvm.sh
+```
+## Install arm baremetal compiler on aarch64 linux
+Using "GNU Arm Embedded Toolchain Version 10-2020-q4-major" as example. You can check the latest version from here. 
+https://developer.arm.com/tools-and-software/open-source-software/developer-tools/gnu-toolchain/gnu-rm/downloads
+```
+user0@hc4armkk: cd odroidhc4-install/scripts && source ./install_compiler.sh
+```
+
 
 ## 5. Aarch64 v8.2A optimiztion tips
 <TBD>
