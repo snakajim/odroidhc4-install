@@ -3,6 +3,8 @@ Ubuntu 20.04LTS installation on Aarch64 v8.2A Hardware(Hardkernel Odroid HC4) an
 
 ## 1.hardware preparation
 
+YOU DON'T NEED SD Card/USB Memory TO BOOT! EXCELLENT!
+
 - Hardkernel Odroid HC4 https://www.hardkernel.com/shop/odroid-hc4/
 - SATA IF 2.5 SSD(maybe 256GByte or bigger)
 - HDMI cable
