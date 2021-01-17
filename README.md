@@ -38,27 +38,21 @@ Total OS installation may take 1.0 hour. After installation, reboot system and s
 Login in as accountmngr with password you set during Ubuntu installation. First thing you need to do is,
 
 ```
-$> sudo apt-get update -y
-$> sudo apt-get install -y  build-essential git
+accountmngr@hc4armkk: sudo apt-get update -y
+accountmngr@hc4armkk: sudo apt-get install -y  build-essential git
 ```
 
 Then let's run install script.
 ```
-$> mkdir -p ~/tmp && cd ~/tmp 
-$> git clone https://github.com/snakajim/odroidhc4-install
-$> cd odroidhc4-install/scripts 
-$> sudo source ./install_basic.sh
+accountmngr@hc4armkk: mkdir -p ~/tmp && cd ~/tmp 
+accountmngr@hc4armkk: git clone https://github.com/snakajim/odroidhc4-install
+accountmngr@hc4armkk: cd odroidhc4-install/scripts 
+accountmngr@hc4armkk: sudo source ./install_basic.sh
 ```
+
 After running the script, user account "user0" is created with sudo authority. Some application does not recommend to install as root, so let's switch login account to "user0" and continue.
 
 ## 4. Install optional applications & libs as non-root user
-
-Login as user0 in console. No password is set but user0 has sudo authority.
-
-If you would liket to access via ssh, copy public key under /home/user0/.ssh by somehow, and set it as authorized key.
-```
-user0@hc4armkk: cd /home/user0/.ssh && cat <your_public_key> >> authorized_keys
-```
 
 HC4 hardware is broadcasting its hostname by mDNS avahi-daemon, so that you can reach the hardware just by hostname. To confirm mDNS is surely working, ping to HC4. 
 ```
@@ -75,6 +69,19 @@ fe80::21e:6ff:fe49:ce%3 の ping 統計:
     最小 = 0ms、最大 = 3ms、平均 = 0ms
 ```
 
+To start with setting user0 profile, ssh connect to hc4armkk as root(accountmngr).
+```
+$> ssh accountmngr@hc4armkk
+password: <as_u_like>
+```
+
+Copy public key under /home/user0/.ssh by somehow and set it as authorized key to user0. After setting the public key, reboot.
+```
+accountmngr@hc4armkk: sudo sh -c "cp <your_public_key> /home/user0/.ssh/<your_public_key> && cat <your_public_key> >> /home/user0/.ssh/authorized_keys"
+accountmngr@hc4armkk: sudo chown -R user0:user0 /home/user0 
+accountmngr@hc4armkk: reboot
+```
+
 In your remote development environment such as Microsoft VS Code, add ssh configulation file which is usually in ${HOME}/.ssh/config
 ```
 Host hc4armkk
@@ -87,18 +94,19 @@ Host hc4armkk
     ForwardX11 yes
 ```
 
-I prepare some of install script under /scripts. You can choose which script you would like to run.
-
+Now you are ready to connect from remote. Just choose "Remote SSH: Connect Host..." in VS Code Pull Down Window and select "hc4armkk" from the list. There are several articles in web about Remote SSH in VS Code, so please refer them as well. I prepare some install scripts under /scripts. You can choose some of them, or refer them to make your own.
 ```
 user0@hc4armkk: cd ~/tmp && git clone https://github.com/snakajim/odroidhc4-install && cd ~/tmp/odroidhc4-install/scripts
 user0@hc4armkk: ls *.sh
 install_acl.sh  install_basic.sh  install_compiler.sh  install_llvm.sh
 ```
+
 ### a. Install Arm Compute Library on aarch64 linux
 There is build issue with default compiler gcc (Ubuntu 9.3.0-17ubuntu1~20.04) 9.3.0. You need to change gcc-7 or clang-11.01. To utilzie v8.2A NEON feature, plese do not forget to set "arch=arm64-v8.2-a" and "neon=1" in scons args.
 ```
 user0@hc4armkk: cd odroidhc4-install/scripts && source ./install_acl.sh
 ```
+
 Using clang may generate warning in compilation, ie -Wno-deprecated-copy. To avoid build error due to warning, please set "Werror=0" in scons args or -Wno-deprecated-copy in ComputeLibrary/SConstruct manually.
 
 ### b. Install clang-11.01 on aarch64 linux
@@ -106,6 +114,7 @@ There is build issue with default compiler gcc (Ubuntu 9.3.0-17ubuntu1~20.04) 9.
 ```
 user0@hc4armkk: cd odroidhc4-install/scripts && source ./install_llvm.sh
 ```
+
 ### c. Install arm baremetal compiler on aarch64 linux
 Using "GNU Arm Embedded Toolchain Version 10-2020-q4-major" as example. You can check the latest version from here. 
 https://developer.arm.com/tools-and-software/open-source-software/developer-tools/gnu-toolchain/gnu-rm/downloads
@@ -115,4 +124,7 @@ user0@hc4armkk: cd odroidhc4-install/scripts && source ./install_compiler.sh
 
 
 ## 5. Aarch64 v8.2A optimiztion tips
-<TBD>
+Coming later...
+
+## Revision history
+v1.0: initial version, 2021-Jan
