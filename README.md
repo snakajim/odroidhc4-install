@@ -39,7 +39,7 @@ Login in as accountmngr with password you set during Ubuntu installation. First 
 
 ```
 $> sudo apt-get update -y
-$> sudo apt-get install -y  build-essential  
+$> sudo apt-get install -y  build-essential git
 ```
 
 Then let's run install script.
