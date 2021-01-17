@@ -107,17 +107,46 @@ There is build issue with default compiler gcc (Ubuntu 9.3.0-17ubuntu1~20.04) 9.
 user0@hc4armkk: cd odroidhc4-install/scripts && source ./install_acl.sh
 ```
 
-Using clang may generate warning in compilation, ie -Wno-deprecated-copy. To avoid build error due to warning, please set "Werror=0" in scons args or -Wno-deprecated-copy in ComputeLibrary/SConstruct manually.
+Using clang may generate warning in compilation, ie -Wno-deprecated-copy. To avoid build error due to warning, please set "Werror=0" in scons args or -Wno-deprecated-copy in ComputeLibrary/SConstruct manually. You can see more about scons args in manual.
 
-### b. Install clang-11.01 on aarch64 linux
-There is build issue with default compiler gcc (Ubuntu 9.3.0-17ubuntu1~20.04) 9.3.0. You need to change gcc-7 to build. Installation may take 5-6 hours.
+- https://arm-software.github.io/ComputeLibrary/v20.11/index.xhtml#S3_how_to_build
+
+
+
+| tool chain     | ACL compile time(min) |
+|----------------|-----------------------|
+| gcc-7 + ld     | <TBM> |
+| clang-11 + lld | <TBM> |
+
+### b. Install LLVM1101(clang/clang++/libcxx/libcxxabi/lld/openmp) on aarch64 linux
+There is build issue with default compiler gcc (Ubuntu 9.3.0-17ubuntu1~20.04) 9.3.0. You need to change gcc-7 to build. Installation may take 5-6 hours. After install llvm, recommend to reboot.
+
 ```
 user0@hc4armkk: cd odroidhc4-install/scripts && source ./install_llvm.sh
 ```
 
+To enable clang/lld after install, set env params. Note "lld" is install as "ld.lld" in Linux. 
+```
+user0@hc4armkk: export LLVM_DIR=/usr/local/llvm_1101
+user0@hc4armkk: export PATH=$LLVM_DIR/bin:$PATH
+user0@hc4armkk: export LIBRARY_PATH=/usr/lib/llvm-10/lib:$LIBRARY_PATH
+user0@hc4armkk: which lld  && lld --version
+/usr/local/llvm_1101/bin/lld
+lld is a generic driver.
+user0@hc4armkk: which ld && ld --version
+/usr/bin/ld
+GNU ld (GNU Binutils for Ubuntu) 2.34
+```
+
+You can simply link "ld.lld" as standard "ld" under/usr/bin, or parse "-fuse-ld=lld" at link time.
+
+For details about lld, see manual page. 
+- https://lld.llvm.org/
+
 ### c. Install arm baremetal compiler on aarch64 linux
 Using "GNU Arm Embedded Toolchain Version 10-2020-q4-major" as example. You can check the latest version from here. 
 - https://developer.arm.com/tools-and-software/open-source-software/developer-tools/gnu-toolchain/gnu-rm/downloads
+
 ```
 user0@hc4armkk: cd odroidhc4-install/scripts && source ./install_compiler.sh
 ```
