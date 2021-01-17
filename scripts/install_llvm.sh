@@ -34,7 +34,7 @@ if [ $OSNOW = "UBUNTU" ]; then
   cmake -G Ninja -G "Unix Makefiles"\
     -DCMAKE_C_COMPILER=$CC \
     -DCMAKE_CXX_COMPILER=$CXX \
-    -DLLVM_ENABLE_PROJECTS=clang \
+    -DLLVM_ENABLE_PROJECTS="clang;libcxx;libcxxabi;lld;openmp" \
     -DCMAKE_BUILD_TYPE=RELEASE \
     -DLLVM_TARGETS_TO_BUILD="ARM;AArch64"\
     -DCMAKE_INSTALL_PREFIX="/usr/local/llvm_1101" \
@@ -43,7 +43,7 @@ elif [ $OSNOW = "CENTOS" ]; then
   cmake -G Ninja -G "Unix Makefiles"\
     -DCMAKE_C_COMPILER=$CC \
     -DCMAKE_CXX_COMPILER=$CXX \
-    -DLLVM_ENABLE_PROJECTS=clang \
+    -DLLVM_ENABLE_PROJECTS="clang;libcxx;libcxxabi;lld;openmp" \
     -DCMAKE_BUILD_TYPE=RELEASE \
     -DLLVM_TARGETS_TO_BUILD="ARM;AArch64"\
     -DCMAKE_INSTALL_PREFIX="/usr/local/llvm_1101" \
@@ -53,9 +53,10 @@ else
 fi
 make clean
 echo "# " >> ${HOME}/.bashrc
-echo "# LLVM setting for binary and LIBRARY_PATH(not LD_LIBRARY_PATH)" >> ${HOME}/.bashrc
+echo "# LLVM setting for binary and LD_ & LIBRARY_PATH" >> ${HOME}/.bashrc
 echo "export LLVM_DIR=/usr/local/llvm_1101">> ${HOME}/.bashrc
 echo "export PATH=\$LLVM_DIR/bin:\$PATH" >>  ${HOME}/.bashrc
-echo "export LIBRARY_PATH=/usr/lib/llvm-10/lib:\$LIBRARY_PATH" >>  ${HOME}/.bashrc
+echo "export LIBRARY_PATH=\$LLVM_DIR/lib:\$LIBRARY_PATH" >>  ${HOME}/.bashrc
+echo "export LD_LIBRARY_PATH=\$LLVM_DIR/lib:\$LD_LIBRARY_PATH" >>  ${HOME}/.bashrc
 
 exec $SHELL -l
