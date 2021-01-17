@@ -11,10 +11,8 @@ if [ ! -d ./ComputeLibrary ]; then
   git clone https://github.com/ARM-software/ComputeLibrary.git -b v20.11
 fi
 
-# Get Force scon using clang instead of gcc. Make sure you have llvm by either
-# - running install_llvm.sh
-# - apt-get clang
-#
+# Get Force scon using clang or gcc-7. 
+# 
 if [ -d /usr/local/llvm_1101/bin ]; then
   export CXX="/usr/local/llvm_1101/bin/clang++"
   export CC="/usr/local/llvm_1101/bin/clang"
