@@ -36,14 +36,14 @@ firewall-cmd --add-service=mdns  --permanent
 firewall-cmd --reload
 
 # Change sshd_config file
-# SSH poicy is as root login, without passwd
+# SSH poicy is as root login.
 #
 sed -i 's/^#PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config
 sed -i 's/^#X11DisplayOffset 10/X11DisplayOffset 10/' /etc/ssh/sshd_config
 systemctl restart sshd
 
 # add "user0" without passward.
-# you can replace "user0" to your favorite ID
+# you can replace "user0" to your favorite user account later.
 #
 useradd -m user0 && passwd -d user0 && \
 usermod -aG wheel user0 && \
