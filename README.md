@@ -47,7 +47,7 @@ Then let's run install script.
 accountmngr@hc4armkk: mkdir -p ~/tmp && cd ~/tmp 
 accountmngr@hc4armkk: git clone https://github.com/snakajim/odroidhc4-install
 accountmngr@hc4armkk: cd odroidhc4-install/scripts 
-accountmngr@hc4armkk: sudo source ./install_basic.sh
+accountmngr@hc4armkk: chmod +x * && sudo sh -c ./install_basic.sh
 ```
 
 After running the script, user account "user0" is created with sudo authority. Some application does not recommend to install as root, so let's switch login account to "user0" and continue.
