@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# install Arm Computing Library on Aarch64 Ubuntu20.04, and some of examples.
+# install Arm Computing Library on Aarch64 Ubuntu20.04.
 #
 
 # Downlaod and install
