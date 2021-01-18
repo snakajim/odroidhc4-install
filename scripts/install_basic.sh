@@ -35,12 +35,28 @@ systemctl enable avahi-daemon
 firewall-cmd --add-service=mdns  --permanent
 firewall-cmd --reload
 
+# enable at daemon
+systemctl start atd
+systemctl enable atd
+
 # Change sshd_config file
 # SSH poicy is as root login.
 #
 sed -i 's/^#PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config
 sed -i 's/^#X11DisplayOffset 10/X11DisplayOffset 10/' /etc/ssh/sshd_config
 systemctl restart sshd
+
+#
+# Change thermal point, this settind does not work. Waiting for fix.
+# - /sys/devices/virtual/thermal/thermal_zone0/trip_point_0_temp
+# - /sys/devices/virtual/thermal/thermal_zone0/trip_point_1_temp
+# Please refer https://forum.odroid.com/viewtopic.php?f=205&t=41070
+#
+#su -c "chmod +w /sys/devices/virtual/thermal/thermal_zone0/trip_point_[0-2]_temp"
+#su -c "sed -i 's/85000/35000/'  /sys/devices/virtual/thermal/thermal_zone0/trip_point_0_temp"
+#su -c "sed -i 's/95000/85000/'  /sys/devices/virtual/thermal/thermal_zone0/trip_point_1_temp"
+#su -c "sed -i 's/110000/85000/' /sys/devices/virtual/thermal/thermal_zone0/trip_point_2_temp"
+#su -c "chmod -w /sys/devices/virtual/thermal/thermal_zone0/trip_point_[0-2]_temp"
 
 # add "user0" without passward.
 # you can replace "user0" to your favorite user account later.
