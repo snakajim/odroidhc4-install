@@ -57,11 +57,11 @@ After running the script, user account "user0" is created with sudo authority. S
 HC4 hardware is broadcasting its hostname by mDNS avahi-daemon, so that you can reach the hardware just by hostname. To confirm mDNS is surely working, ping to HC4. 
 ```
 $> ping hc4armkk
-hc4armkk.local [fe80::21e:6ff:fe49:ce%3]に ping を送信しています 32 バイトのデータ:
-fe80::21e:6ff:fe49:ce%3 からの応答: 時間 =3ms
-fe80::21e:6ff:fe49:ce%3 からの応答: 時間 <1ms
-fe80::21e:6ff:fe49:ce%3 からの応答: 時間 <1ms
-fe80::21e:6ff:fe49:ce%3 からの応答: 時間 <1ms
+hc4armkk.local [fe80::35e:6cf:fe79:ce%3]に ping を送信しています 32 バイトのデータ:
+fe80::35e:6cf:fe79:ce%3 からの応答: 時間 =3ms
+fe80::35e:6cf:fe79:ce%3 からの応答: 時間 <1ms
+fe80::35e:6cf:fe79:ce%3 からの応答: 時間 <1ms
+fe80::35e:6cf:fe79:ce%3 からの応答: 時間 <1ms
 
 fe80::21e:6ff:fe49:ce%3 の ping 統計:
     パケット数: 送信 = 4、受信 = 4、損失 = 0 (0% の損失)、
