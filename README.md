@@ -42,7 +42,7 @@ accountmngr@hc4armkk: sudo apt-get update -y
 accountmngr@hc4armkk: sudo apt-get install -y  build-essential git
 ```
 
-Then let's run install script.
+Then let's run basic install script.
 ```
 accountmngr@hc4armkk: mkdir -p ~/tmp && cd ~/tmp 
 accountmngr@hc4armkk: git clone https://github.com/snakajim/odroidhc4-install
@@ -50,7 +50,13 @@ accountmngr@hc4armkk: cd odroidhc4-install/scripts
 accountmngr@hc4armkk: chmod +x * && sudo sh -c ./install_basic.sh
 ```
 
-After running the script, user account "user0" is created with sudo authority. Some application does not recommend to install as root, so let's switch login account to "user0" and continue.
+The script installs and sets basic environment for HC4.
+- install gcc-7,8 and 10. Default tool chain is gcc-9.
+- install basic apps.
+- avahi-daemon enabled, your hostname hc4armkk is accesable from local.
+- user account "user0" is created with sudo authority. 
+
+Some application does not recommend to install as root, so let's switch login account to "user0" and continue.
 
 ## 4. Install optional applications & libs as non-root user
 
@@ -63,7 +69,7 @@ fe80::35e:6cf:fe79:ce%3 からの応答: 時間 <1ms
 fe80::35e:6cf:fe79:ce%3 からの応答: 時間 <1ms
 fe80::35e:6cf:fe79:ce%3 からの応答: 時間 <1ms
 
-fe80::21e:6ff:fe49:ce%3 の ping 統計:
+fe80::35e:6cf:fe79:ce%3 の ping 統計:
     パケット数: 送信 = 4、受信 = 4、損失 = 0 (0% の損失)、
 ラウンド トリップの概算時間 (ミリ秒):
     最小 = 0ms、最大 = 3ms、平均 = 0ms
