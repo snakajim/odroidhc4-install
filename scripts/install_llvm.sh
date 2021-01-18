@@ -1,7 +1,9 @@
 #!/bin/bash
 #
 # This script is tested on Aarch64 Ubuntu20.04 LTS only. 
-
+# How to run:
+# $> time source ./install_llvm.sh >& install_llvm.log &
+#
 export CXX="/usr/bin/g++-7"
 export CC="/usr/bin/gcc-7"
 
@@ -30,6 +32,8 @@ cd ${HOME}/tmp && rm -rf *
 cd ${HOME}/tmp && aria2c -x10 https://github.com/llvm/llvm-project/releases/download/llvmorg-11.0.1/llvm-project-11.0.1.src.tar.xz
 unxz llvm-project-11.0.1.src.tar.xz && tar xvf llvm-project-11.0.1.src.tar && \
   cd llvm-project-11.0.1.src && mkdir -p build && cd build
+echo "start LLVM1101 build"
+date
 if [ $OSNOW = "UBUNTU" ]; then 
   cmake -G Ninja -G "Unix Makefiles"\
     -DCMAKE_C_COMPILER=$CC \
@@ -51,12 +55,27 @@ elif [ $OSNOW = "CENTOS" ]; then
 else
   echo "please set right choise in OS=$OSNOW.."
 fi
+echo "end LLVM1101 build"
+date
 make clean
-echo "# " >> ${HOME}/.bashrc
-echo "# LLVM setting for binary and LD_ & LIBRARY_PATH" >> ${HOME}/.bashrc
-echo "export LLVM_DIR=/usr/local/llvm_1101">> ${HOME}/.bashrc
-echo "export PATH=\$LLVM_DIR/bin:\$PATH" >>  ${HOME}/.bashrc
-echo "export LIBRARY_PATH=\$LLVM_DIR/lib:\$LIBRARY_PATH" >>  ${HOME}/.bashrc
-echo "export LD_LIBRARY_PATH=\$LLVM_DIR/lib:\$LD_LIBRARY_PATH" >>  ${HOME}/.bashrc
 
-exec $SHELL -l
+#
+# post install processing
+#
+grep LLVM_DIR ${HOME}/.bashrc
+
+if [ $? ]; then
+  echo "# " >> ${HOME}/.bashrc
+  echo "# LLVM setting for binary and LD_ & LIBRARY_PATH" >> ${HOME}/.bashrc
+  echo "export LLVM_DIR=/usr/local/llvm_1101">> ${HOME}/.bashrc
+  echo "export PATH=\$LLVM_DIR/bin:\$PATH" >>  ${HOME}/.bashrc
+  echo "export LIBRARY_PATH=\$LLVM_DIR/lib:\$LIBRARY_PATH" >>  ${HOME}/.bashrc
+  echo "export LD_LIBRARY_PATH=\$LLVM_DIR/lib:\$LD_LIBRARY_PATH" >>  ${HOME}/.bashrc
+fi
+
+if [ -f /usr/local/llvm_1101/bin/lld ]; then
+  sudo rm /usr/bin/ld
+  sudo ln -s /usr/local/llvm_1101/bin/lld /usr/bin/ld
+fi
+
+echo "LLVM compile & install done"
