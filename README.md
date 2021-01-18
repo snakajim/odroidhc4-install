@@ -94,7 +94,10 @@ Host hc4armkk
     ForwardX11 yes
 ```
 
-Now you are ready to connect from remote. Just choose "Remote SSH: Connect Host..." in VS Code Pull Down Window and select "hc4armkk" from the list. There are several articles in web about Remote SSH in VS Code, so please refer them as well. I prepare some install scripts under /scripts. You can choose some of them, or refer them to make your own.
+Now you are ready to connect from remote. Just choose "Remote SSH: Connect Host..." in VS Code Pull Down Window and select "hc4armkk" from the list. There are several articles in web about Remote SSH in VS Code, so please refer them as well. 
+
+Once you can successfully login as user0, let's test sample scripts under odroidhc4-install/scripts.
+
 ```
 user0@hc4armkk: cd ~/tmp && git clone https://github.com/snakajim/odroidhc4-install && cd ~/tmp/odroidhc4-install/scripts
 user0@hc4armkk: ls *.sh
@@ -111,12 +114,19 @@ Using clang may generate warning in compilation, ie -Wno-deprecated-copy. To avo
 
 - https://arm-software.github.io/ComputeLibrary/v20.11/index.xhtml#S3_how_to_build
 
+Compile time varies in which tool chain you choose. Here is a quick benchmark.
 
+```
+scons Werror=0 debug=0 asserts=0 arch=arm64-v8.2-a os=linux neon=1 opencl=1 examples=1 build=native pmu=1 benchmark_tests=1 -j4
+```
 
-| tool chain     | ACL compile time(min) |
-|----------------|-----------------------|
-| gcc-7 + ld     | <TBM> |
-| clang-11 + lld | <TBM> |
+| tool chain     | ACL compile time(min) | ratio |
+|----------------|-----------------------|-------|
+| gcc-7 + ld     | <TBM>                 |<TBM>  |
+| clang-11 + lld-11 | <TBM>              |<TBM>  |
+| gcc-7 + lld-11 | <TBM>                 |<TBM>  |
+    
+
 
 ### b. Install LLVM1101(clang/clang++/libcxx/libcxxabi/lld/openmp) on aarch64 linux
 There is build issue with default compiler gcc (Ubuntu 9.3.0-17ubuntu1~20.04) 9.3.0. You need to change gcc-7 to build. Installation may take 5-6 hours. After install llvm, recommend to reboot.
@@ -138,7 +148,7 @@ user0@hc4armkk: which ld && ld --version
 GNU ld (GNU Binutils for Ubuntu) 2.34
 ```
 
-You can simply link "ld.lld" as standard "ld" under/usr/bin, or parse "-fuse-ld=lld" at link time.
+You can simply link "ld.lld" as standard "ld" under /usr/bin, or parse "-fuse-ld=lld" at link time.
 
 For details about lld, see manual page. 
 - https://lld.llvm.org/
