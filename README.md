@@ -126,16 +126,16 @@ Compile time varies in which tool chain you choose. Here is a quick benchmark.
 scons Werror=0 debug=0 asserts=0 arch=arm64-v8.2-a os=linux neon=1 opencl=1 examples=1 build=native pmu=1 benchmark_tests=1 -j4
 ```
 
-| tool chain     | ACL compile time(min) | ratio |
-|----------------|-----------------------|-------|
-| gcc-7 + ld     | <TBM>                 |<TBM>  |
-| clang-11 + lld-11 | <TBM>              |<TBM>  |
-| gcc-7 + lld-11 | <TBM>                 |<TBM>  |
+| tool chain        | user time(min) | ratio |
+|-------------------|----------------|-------|
+| gcc-7 + ld        | 288            |1.00   |
+| clang-11 + lld-11 | <TBM>          |<TBM>  |
+| gcc-7 + lld-11    | <TBM>          |<TBM>  |
     
 
 
 ### b. Install LLVM1101(clang/clang++/libcxx/libcxxabi/lld/openmp) on aarch64 linux
-There is build issue with default compiler gcc (Ubuntu 9.3.0-17ubuntu1~20.04) 9.3.0. You need to change gcc-7 to build. Installation may take 5-6 hours. After install llvm, recommend to reboot.
+There is build issue with default compiler gcc (Ubuntu 9.3.0-17ubuntu1~20.04) 9.3.0. You need to change gcc-7 to build. Installation may take 5 hours. After install llvm, recommend to reboot.
 
 ```
 user0@hc4armkk: cd odroidhc4-install/scripts && source ./install_llvm.sh
