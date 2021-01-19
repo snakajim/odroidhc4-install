@@ -2,7 +2,7 @@
 #
 # This script is tested on Aarch64 Ubuntu20.04 LTS only. 
 # How to run:
-# $> time source ./install_lld.sh >& install_lld.log &
+# $> \time -ao install_lld.log ./install_lld.sh >& install_lld.log &
 #
 export CXX="/usr/bin/g++-7"
 export CC="/usr/bin/gcc-7"

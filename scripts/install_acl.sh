@@ -2,7 +2,7 @@
 #
 # install Arm Computing Library on Aarch64 Ubuntu20.04.
 # How to use:
-# $> time source ./install_acl.sh >& install_acl.log &
+# $> \time -ao install_acl.log ./install_acl.sh >& install_acl.log &
 #
 
 # Downlaod and install

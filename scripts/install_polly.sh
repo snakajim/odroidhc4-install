@@ -2,7 +2,7 @@
 #
 # This script is tested on Aarch64 Ubuntu20.04 LTS only. 
 # How to run:
-# $> time source ./install_polly.sh >& install_polly.log &
+# $> \time -ao install_polly.log ./install_polly.sh >& install_polly.log &
 #
 export CXX="/usr/bin/g++-7"
 export CC="/usr/bin/gcc-7"
@@ -37,7 +37,7 @@ if [ $OSNOW = "UBUNTU" ]; then
   cmake -G Ninja -G "Unix Makefiles"\
     -DCMAKE_C_COMPILER=$CC \
     -DCMAKE_CXX_COMPILER=$CXX \
-    -DLLVM_ENABLE_PROJECTS="flang;polly" \
+    -DLLVM_ENABLE_PROJECTS="polly" \
     -DCMAKE_BUILD_TYPE=RELEASE \
     -DLLVM_TARGETS_TO_BUILD="ARM;AArch64"\
     -DCMAKE_INSTALL_PREFIX="/usr/local/llvm_1101" \
@@ -46,7 +46,7 @@ elif [ $OSNOW = "CENTOS" ]; then
   cmake -G Ninja -G "Unix Makefiles"\
     -DCMAKE_C_COMPILER=$CC \
     -DCMAKE_CXX_COMPILER=$CXX \
-    -DLLVM_ENABLE_PROJECTS="flang;polly" \
+    -DLLVM_ENABLE_PROJECTS="polly" \
     -DCMAKE_BUILD_TYPE=RELEASE \
     -DLLVM_TARGETS_TO_BUILD="ARM;AArch64"\
     -DCMAKE_INSTALL_PREFIX="/usr/local/llvm_1101" \
