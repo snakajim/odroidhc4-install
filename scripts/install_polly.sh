@@ -41,7 +41,7 @@ if [ $OSNOW = "UBUNTU" ]; then
     -DCMAKE_BUILD_TYPE=RELEASE \
     -DLLVM_TARGETS_TO_BUILD="ARM;AArch64"\
     -DCMAKE_INSTALL_PREFIX="/usr/local/llvm_1101" \
-    ../llvm && make -j12 && sudo make install
+    ../llvm && make -j4 && sudo make install
 elif [ $OSNOW = "CENTOS" ]; then
   cmake -G Ninja -G "Unix Makefiles"\
     -DCMAKE_C_COMPILER=$CC \
@@ -50,7 +50,7 @@ elif [ $OSNOW = "CENTOS" ]; then
     -DCMAKE_BUILD_TYPE=RELEASE \
     -DLLVM_TARGETS_TO_BUILD="ARM;AArch64"\
     -DCMAKE_INSTALL_PREFIX="/usr/local/llvm_1101" \
-    ../llvm && make -j12 && sudo make install
+    ../llvm && make -j4 && sudo make install
 else
   echo "please set right choise in OS=$OSNOW.."
 fi
@@ -64,7 +64,7 @@ make clean
 grep LLVM_DIR ${HOME}/.bashrc
 ret=$?
 
-if [ ret ]; then
+if [ $ret ]; then
   echo "# " >> ${HOME}/.bashrc
   echo "# LLVM setting for binary and LD_ & LIBRARY_PATH" >> ${HOME}/.bashrc
   echo "export LLVM_DIR=/usr/local/llvm_1101">> ${HOME}/.bashrc
