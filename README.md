@@ -110,7 +110,7 @@ Once you can successfully login as user0, let's run sample scripts under odroidh
 ```
 user0@hc4armkk: cd ~/tmp && git clone https://github.com/snakajim/odroidhc4-install && cd ~/tmp/odroidhc4-install/scripts
 user0@hc4armkk: ls *.sh
-install_acl.sh  install_basic.sh  install_compiler.sh  install_lld.sh install_llvm.sh
+install_acl.sh  install_basic.sh  install_compiler.sh  install_lld.sh install_llvm.sh install_polly.sh
 ```
 
 ### a. Install Arm Compute Library on aarch64 linux
@@ -169,6 +169,15 @@ GNU ld (GNU Binutils for Ubuntu) 2.34
 
 For details about lld, see manual page. 
 - https://lld.llvm.org/
+
+#### LLVM polly
+Polly is a LLVM Framework for High-Level Loop and Data-Locality Optimizations. You can enable polly just parsing "-O3 -mllvm -polly" options. 
+
+```
+clang -O3 -mllvm -polly file.c
+```
+
+Runtime benchmark result To Be Measured.
 
 ### c. Install arm baremetal compiler on aarch64 linux
 Using "GNU Arm Embedded Toolchain Version 10-2020-q4-major" as example. You can check the latest version from here. 
