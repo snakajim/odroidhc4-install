@@ -63,8 +63,8 @@ make clean
 # post install processing
 #
 grep LLVM_DIR ${HOME}/.bashrc
-
-if [ $? ]; then
+ret=$?
+if [ ret ]; then
   echo "# " >> ${HOME}/.bashrc
   echo "# LLVM setting for binary and LD_ & LIBRARY_PATH" >> ${HOME}/.bashrc
   echo "export LLVM_DIR=/usr/local/llvm_1101">> ${HOME}/.bashrc
