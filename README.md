@@ -54,8 +54,9 @@ accountmngr@hc4armkk: chmod +x * && sudo sh -c ./install_basic.sh
 
 The script installs and sets basic environment for HC4.
 - install gcc-7,8 and 10. Default tool chain is gcc-9.
-- install basic apps.
-- avahi-daemon enabled, your hostname hc4armkk is accesable from local.
+- install basic apps used for build, such as cmake/java/pip3/ninja/aria2/z3, etc..
+- avahi-daemon enabled, your hostname "hc4armkk" is accesable from local.
+- at-daemon(atd) enabled.
 - user account "user0" is created with sudo authority. 
 
 Some application does not recommend to install as root, so let's switch login account to "user0" and continue.
@@ -104,12 +105,12 @@ Host hc4armkk
 
 Now you are ready to connect from remote. Just choose "Remote SSH: Connect Host..." in VS Code Pull Down Window and select "hc4armkk" from the list. There are several articles in web about Remote SSH in VS Code, so please refer them as well. 
 
-Once you can successfully login as user0, let's test sample scripts under odroidhc4-install/scripts.
+Once you can successfully login as user0, let's run sample scripts under odroidhc4-install/scripts.
 
 ```
 user0@hc4armkk: cd ~/tmp && git clone https://github.com/snakajim/odroidhc4-install && cd ~/tmp/odroidhc4-install/scripts
 user0@hc4armkk: ls *.sh
-install_acl.sh  install_basic.sh  install_compiler.sh  install_llvm.sh
+install_acl.sh  install_basic.sh  install_compiler.sh  install_lld.sh install_llvm.sh
 ```
 
 ### a. Install Arm Compute Library on aarch64 linux
@@ -144,7 +145,7 @@ There is build issue with default compiler gcc (Ubuntu 9.3.0-17ubuntu1~20.04) 9.
 user0@hc4armkk: cd odroidhc4-install/scripts && source ./install_llvm.sh
 ```
 
-If you need just lld-11, 
+Or if you need just lld-11, 
 ```
 user0@hc4armkk: cd odroidhc4-install/scripts && source ./install_lld.sh
 ```
@@ -182,4 +183,4 @@ user0@hc4armkk: cd odroidhc4-install/scripts && source ./install_compiler.sh
 Coming later...
 
 ## Revision history
-v1.0: initial version, 2021-Jan
+v1.0: initial version, 2021-Jan-19
