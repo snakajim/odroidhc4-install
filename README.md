@@ -5,12 +5,14 @@ Ubuntu 20.04LTS installation on Aarch64 v8.2A Hardware(Hardkernel Odroid HC4) an
 
 YOU DON'T NEED SD Card/USB Memory TO BOOT! EXCELLENT!
 
-- Hardkernel Odroid HC4 https://www.hardkernel.com/shop/odroid-hc4/
-- SATA IF 2.5 SSD(maybe 256GByte or bigger)
-- HDMI cable
-- AC/DC power adapter
-- USB keyboard & mouse. Note only one USB3.0 port on HC4, so USB hub is likely needed.
+- Hardkernel Odroid HC4 board https://www.hardkernel.com/shop/odroid-hc4/
+- SATA 2.5inch SSD(maybe 256GByte or bigger)
+- HDMI cable and Display
+- AC/DC power adapter(choosing 15V/4A, but maybe ok for 2-3A)
+- USB keyboard & mouse. Note only one USB3.0 port on HC4, USB hub is likely needed.
 - Ether cable and public network connection.
+
+![HC4](Odroid-HC4.jpg)
 
 ## 2. Petiboot netboot and Ubuntu install
 
@@ -142,11 +144,20 @@ There is build issue with default compiler gcc (Ubuntu 9.3.0-17ubuntu1~20.04) 9.
 user0@hc4armkk: cd odroidhc4-install/scripts && source ./install_llvm.sh
 ```
 
+If you need just lld-11, 
+```
+user0@hc4armkk: cd odroidhc4-install/scripts && source ./install_lld.sh
+```
+
+You can simply symbolically link "ld.lld" as standard "ld" under /usr/bin, or parse "-fuse-ld=lld" at link time. This is done by ./install_lld.sh.
+
+
 To enable clang/lld after install, set env params. Note "lld" is install as "ld.lld" in Linux. 
 ```
 user0@hc4armkk: export LLVM_DIR=/usr/local/llvm_1101
 user0@hc4armkk: export PATH=$LLVM_DIR/bin:$PATH
-user0@hc4armkk: export LIBRARY_PATH=/usr/lib/llvm-10/lib:$LIBRARY_PATH
+user0@hc4armkk: export LIBRARY_PATH=$LLVM_DIR/lib:$LIBRARY_PATH
+user0@hc4armkk: export LD_LIBRARY_PATH=$LLVM_DIR/lib:$LD_LIBRARY_PATH
 user0@hc4armkk: which lld  && lld --version
 /usr/local/llvm_1101/bin/lld
 lld is a generic driver.
@@ -154,8 +165,6 @@ user0@hc4armkk: which ld && ld --version
 /usr/bin/ld
 GNU ld (GNU Binutils for Ubuntu) 2.34
 ```
-
-You can simply symbolically link "ld.lld" as standard "ld" under /usr/bin, or parse "-fuse-ld=lld" at link time.
 
 For details about lld, see manual page. 
 - https://lld.llvm.org/
