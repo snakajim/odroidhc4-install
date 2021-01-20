@@ -114,6 +114,8 @@ install_acl.sh  install_basic.sh  install_compiler.sh  install_lld.sh install_ll
 ```
 
 ### a. Install Arm Compute Library on aarch64 linux
+
+#### building ACL
 There is build issue with default compiler gcc (Ubuntu 9.3.0-17ubuntu1~20.04) 9.3.0. You need to change gcc-7 or clang-11.01. To utilzie v8.2A NEON feature, plese do not forget to set "arch=arm64-v8.2-a" and "neon=1" in scons args. Installation may take 5-6 hours.
 ```
 user0@hc4armkk: cd odroidhc4-install/scripts && source ./install_acl.sh
@@ -137,6 +139,16 @@ The latest LLVM tools, both clang-11 and lld-11, does not help for HC4 native co
 | clang-11 + lld-11 | 377            |1.30   |
 | gcc-7 + lld-11    | 288            |1.00   |
     
+#### running tests given in library
+
+- https://arm-software.github.io/ComputeLibrary/v20.11/tests.xhtml#tests_running_tests
+
+```
+user0@hc4armkk: cd ComputeLibrary/build/test && \
+export LD_LIBRARY_PATH=${PWD}/..:$LD_LIBRARY_PATH && \
+./arm_compute_benchmark --help
+```
+
 
 ### b. Install LLVM1101(clang/clang++/libcxx/libcxxabi/lld/openmp) on aarch64 linux
 There is build issue with default compiler gcc (Ubuntu 9.3.0-17ubuntu1~20.04) 9.3.0. You need to change gcc-7 to build. Installation may take 5 hours. After install llvm, recommend to reboot.

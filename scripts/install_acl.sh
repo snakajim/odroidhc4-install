@@ -57,6 +57,7 @@ if [ -z $LLVM_DIR ] && [ -f $LLVM_DIR/bin/clang ]; then
   echo "$txt_insert" >> ./SConstruct 
 else
   echo "setting ${CXX} as \$CXX"
+  cd $ACL_ROOT_DIR/gcc/ComputeLibrary
 fi
 
 # Compile Arm Compute Library v20.11
