@@ -11,16 +11,16 @@ ACL_ROOT_DIR=${HOME}/work
 
 # Get Force scon using clang or gcc-7. 
 # 
-if [ -z $CXX ] && [ -f $CXX ]; then
+if [ -z $CXX ] && [ -z $CC ]; then
   echo "Default compiler setting is found."
   echo "Use Default setting, usually GCC. cpp=$CXX and cc=$CC."
-  isDefault=true
+  isDefault=1
 else
   export CXX="/usr/bin/g++-7"
   export CC="/usr/bin/gcc-7"
   echo "Default compiler is not set."
   echo "Forcing compiler to cpp=$CXX and cc=$CC."
-  isDefault=false
+  isDefault=0
 fi
 
 if [ ! -d $ACL_ROOT_DIR/gcc ]; then
@@ -35,7 +35,7 @@ if [ ! -d $ACL_ROOT_DIR/llvm ]; then
   mkdir -p $ACL_ROOT_DIR/llvm
 fi
 
-if [ -z $LLVM_DIR ] && [ -f $LLVM_DIR/bin/clang ] && [ ! $isDefault ]; then
+if [ -z $LLVM_DIR ] && [ -f $LLVM_DIR/bin/clang ] && [ $isDefault -eq 0 ]; then
   export CXX="$LLVM_DIR/bin/clang++"
   export CC="$LLVM_DIR/bin/clang"
   cd $ACL_ROOT_DIR/llvm
