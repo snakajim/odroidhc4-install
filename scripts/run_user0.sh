@@ -8,6 +8,8 @@
 
 # ACL with gcc
 #\time -ao out.log echo "ahoge" >& out.log
+unset CC
+unset CXX
 \time -ao ./install_acl.gcc.log ./install_acl.sh >& ./install_acl.gcc.log
 
 # install LLVM1101

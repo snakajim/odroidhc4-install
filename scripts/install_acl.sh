@@ -11,8 +11,13 @@ ACL_ROOT_DIR=${HOME}/work
 
 # Get Force scon using clang or gcc-7. 
 # 
-export CXX="/usr/bin/g++-7"
-export CC="/usr/bin/gcc-7"
+if [ -z $CXX ] && [ -f $CXX ]; then
+  echo "Default compiler setting is found."
+  echo "Use default setting, cpp for \$CXX and cc \$CC."
+else
+  export CXX="/usr/bin/g++-7"
+  export CC="/usr/bin/gcc-7"
+fi
 
 if [ ! -d $ACL_ROOT_DIR/gcc ]; then
   mkdir -p $ACL_ROOT_DIR/gcc
@@ -33,6 +38,7 @@ if [ -z $LLVM_DIR ] && [ -f $LLVM_DIR/bin/clang ]; then
   if [ ! -d $ACL_ROOT_DIR/llvm/ComputeLibrary ]; then
     git clone https://github.com/ARM-software/ComputeLibrary.git -b v20.11
   fi
+  echo "LLVM is found in your system, so switchin to clang as building tool."
   echo "setting ${CXX} as \$CXX"
   cd $ACL_ROOT_DIR/llvm/ComputeLibrary
 
