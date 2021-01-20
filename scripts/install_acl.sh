@@ -57,6 +57,7 @@ if [ -d /usr/local/llvm_1101/bin ]; then
   echo "$txt_insert" >> ./SConstruct 
 else
   echo "setting ${CXX} as \$CXX"
+  cd $ACL_ROOT_DIR/gcc/ComputeLibrary
 fi
 
 # Compile Arm Compute Library v20.11

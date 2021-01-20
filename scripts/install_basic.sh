@@ -39,6 +39,14 @@ firewall-cmd --reload
 systemctl start atd
 systemctl enable atd
 
+# install gnu mailutils in CLI
+cd /usr/local/src && \
+aria2c -x10 https://ftp.gnu.org/gnu/mailutils/mailutils-3.11.1.tar.gz && \
+tar -zxvf mailutils-3.11.1.tar.gz && cd mailutils-3.11.1 && \
+./configure --prefix=/usr/local/mailutils && make -j4 && make install
+echo "export PATH=/usr/local/mailutils/bin:\$PATH" >>  ${HOME}/.bashrc
+echo "export PATH=/usr/local/mailutils/bin:\$PATH" >>  /etc/skel/.bashrc
+
 # Change sshd_config file
 # SSH poicy is as root login.
 #

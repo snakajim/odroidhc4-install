@@ -30,7 +30,7 @@ fi
 #
 cd ${HOME}/tmp && rm -rf *
 cd ${HOME}/tmp && aria2c -x10 https://github.com/llvm/llvm-project/releases/download/llvmorg-11.0.1/llvm-project-11.0.1.src.tar.xz
-unxz llvm-project-11.0.1.src.tar.xz && tar xvf llvm-project-11.0.1.src.tar && \
+unxz llvm-project-11.0.1.src.tar.xz && tar xf llvm-project-11.0.1.src.tar && \
   cd llvm-project-11.0.1.src && mkdir -p build && cd build
 echo "start LLVM1101 build"
 date
