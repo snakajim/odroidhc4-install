@@ -11,14 +11,14 @@ ACL_ROOT_DIR=${HOME}/work
 
 # Get Force scon using clang or gcc-7. 
 # 
-if [ -z $CXX ] && [ -z $CC ]; then
-  echo "Default compiler setting is found."
-  echo "Use Default setting, usually GCC. cpp=$CXX and cc=$CC."
+if [ -n "$CXX" ] && [ -n "$CC" ]; then
+  echo "Default compiler setting is found in system."
+  echo "Use the Default setting for compile. cpp=$CXX and cc=$CC."
   isDefault=1
 else
+  echo "Default compiler is not set, cpp=$CXX, cc=$CC" 
   export CXX="/usr/bin/g++-7"
   export CC="/usr/bin/gcc-7"
-  echo "Default compiler is not set."
   echo "Forcing compiler to cpp=$CXX and cc=$CC."
   isDefault=0
 fi
