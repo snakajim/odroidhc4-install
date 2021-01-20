@@ -63,9 +63,12 @@ make clean
 # post install processing
 #
 
-if [ -f /usr/local/llvm_1101/bin/lld ]; then
+source ${HOME}/.bashrc
+
+if [ -z $LLVM_DIR ] && [ -f $LLVM_DIR/bin/lld ]; then
   sudo rm /usr/bin/ld
-  sudo ln -s /usr/local/llvm_1101/bin/lld /usr/bin/ld
+  sudo ln -s $LLVM_DIR/bin/lld /usr/bin/ld
 fi
+
 
 echo "LLVM lld compile done"

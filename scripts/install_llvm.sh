@@ -28,7 +28,7 @@ fi
 #
 # install LLVM 1101
 #
-cd ${HOME}/tmp && rm -rf *
+cd ${HOME}/tmp && rm -rf llvm*
 cd ${HOME}/tmp && aria2c -x10 https://github.com/llvm/llvm-project/releases/download/llvmorg-11.0.1/llvm-project-11.0.1.src.tar.xz
 unxz llvm-project-11.0.1.src.tar.xz && tar xf llvm-project-11.0.1.src.tar && \
   cd llvm-project-11.0.1.src && mkdir -p build && cd build
@@ -73,9 +73,11 @@ if [ $ret -eq 1 ]; then
   echo "export LD_LIBRARY_PATH=\$LLVM_DIR/lib:\$LD_LIBRARY_PATH" >>  ${HOME}/.bashrc
 fi
 
-if [ -f /usr/local/llvm_1101/bin/lld ]; then
+source ${HOME}/.bashrc
+
+if [ -z $LLVM_DIR ] && [ -f $LLVM_DIR/bin/lld ]; then
   sudo rm /usr/bin/ld
-  sudo ln -s /usr/local/llvm_1101/bin/lld /usr/bin/ld
+  sudo ln -s $LLVM_DIR/bin/lld /usr/bin/ld
 fi
 
 echo "LLVM compile & install done"
