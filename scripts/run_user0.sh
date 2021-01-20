@@ -4,12 +4,13 @@
 # 
 # How to run:
 # $> source ./run_user0.sh
+# To use at command:
+# $> echo "./run_user0.sh > /dev/null 2>&1" | at now
 #
-
 # ACL with gcc
 #/usr/bin/time -ao out.log echo "ahoge" >& out.log
-unset CC
-unset CXX
+export CXX="/usr/bin/g++-7"
+export CC="/usr/bin/gcc-7"
 /usr/bin/time -ao ./install_acl.gcc.log ./install_acl.sh >& ./install_acl.gcc.log
 
 # install LLVM1101
@@ -17,5 +18,6 @@ unset CXX
 exec $SHELL -l
 
 # ACL with LLVM
-/usr/bin/time -ao ./install_acl.llvm.log ./install_acl.sh >& ./install_acl.llvm.log 
- 
+unset CXX
+unset CC
+/usr/bin/time -ao ./install_acl.llvm.log ./install_acl.sh >& ./install_acl.llvm.log

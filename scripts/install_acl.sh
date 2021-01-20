@@ -13,10 +13,14 @@ ACL_ROOT_DIR=${HOME}/work
 # 
 if [ -z $CXX ] && [ -f $CXX ]; then
   echo "Default compiler setting is found."
-  echo "Use default setting, cpp for \$CXX and cc \$CC."
+  echo "Use Default setting, usually GCC. cpp=$CXX and cc=$CC."
+  isDefault=true
 else
   export CXX="/usr/bin/g++-7"
   export CC="/usr/bin/gcc-7"
+  echo "Default compiler is not set."
+  echo "Forcing compiler to cpp=$CXX and cc=$CC."
+  isDefault=false
 fi
 
 if [ ! -d $ACL_ROOT_DIR/gcc ]; then
@@ -31,7 +35,7 @@ if [ ! -d $ACL_ROOT_DIR/llvm ]; then
   mkdir -p $ACL_ROOT_DIR/llvm
 fi
 
-if [ -z $LLVM_DIR ] && [ -f $LLVM_DIR/bin/clang ]; then
+if [ -z $LLVM_DIR ] && [ -f $LLVM_DIR/bin/clang ] && [ ! $isDefault ]; then
   export CXX="$LLVM_DIR/bin/clang++"
   export CC="$LLVM_DIR/bin/clang"
   cd $ACL_ROOT_DIR/llvm
