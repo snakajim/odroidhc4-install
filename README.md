@@ -146,6 +146,7 @@ user0@hc4armkk:~$ echo "./run_user0.sh > /dev/null 2>&1" | at now
 ### a. Install Arm Compute Library on aarch64 linux
 
 #### a-1. building ACL
+
 There is build issue with default compiler gcc (Ubuntu 9.3.0-17ubuntu1~20.04) 9.3.0. You need to change gcc-7 or clang-11.01. To utilzie v8.2A NEON feature, plese do not forget to set "arch=arm64-v8.2-a" and "neon=1" in scons args. Installation may take 5-6 hours.
 ```
 user0@hc4armkk: cd odroidhc4-install/scripts && source ./install_acl.sh
@@ -182,15 +183,16 @@ export LD_LIBRARY_PATH=${PWD}/..:$LD_LIBRARY_PATH && \
 
 
 ### b. Install LLVM1101(clang/clang++/libcxx/libcxxabi/lld/openmp) on aarch64 linux
+
 There is build issue with default compiler gcc (Ubuntu 9.3.0-17ubuntu1~20.04) 9.3.0. You need to change gcc-7 to build. Installation may take 5 hours. After install llvm, recommend to reboot.
 
 ```
-user0@hc4armkk: cd odroidhc4-install/scripts && source ./install_llvm.sh
+user0@hc4armkk:~$ cd odroidhc4-install/scripts && source ./install_llvm.sh
 ```
 
 Or if you need lld-11 only, 
 ```
-user0@hc4armkk: cd odroidhc4-install/scripts && source ./install_lld.sh
+user0@hc4armkk:~$ cd odroidhc4-install/scripts && source ./install_lld.sh
 ```
 
 You can simply symbolically link "ld.lld" as standard "ld" under /usr/bin, or parse "-fuse-ld=lld" at link time. This is done by ./install_lld.sh.
@@ -198,14 +200,14 @@ You can simply symbolically link "ld.lld" as standard "ld" under /usr/bin, or pa
 
 To enable clang/lld after install, set env params. Note "lld" is install as "ld.lld" in Linux. 
 ```
-user0@hc4armkk: export LLVM_DIR=/usr/local/llvm_1101
-user0@hc4armkk: export PATH=$LLVM_DIR/bin:$PATH
-user0@hc4armkk: export LIBRARY_PATH=$LLVM_DIR/lib:$LIBRARY_PATH
-user0@hc4armkk: export LD_LIBRARY_PATH=$LLVM_DIR/lib:$LD_LIBRARY_PATH
-user0@hc4armkk: which lld  && lld --version
+user0@hc4armkk:~$ export LLVM_DIR=/usr/local/llvm_1101
+user0@hc4armkk:~$ export PATH=$LLVM_DIR/bin:$PATH
+user0@hc4armkk:~$ export LIBRARY_PATH=$LLVM_DIR/lib:$LIBRARY_PATH
+user0@hc4armkk:~$ export LD_LIBRARY_PATH=$LLVM_DIR/lib:$LD_LIBRARY_PATH
+user0@hc4armkk:~$ which lld  && lld --version
 /usr/local/llvm_1101/bin/lld
 lld is a generic driver.
-user0@hc4armkk: which ld && ld --version
+user0@hc4armkk:~$ which ld && ld --version
 /usr/bin/ld
 GNU ld (GNU Binutils for Ubuntu) 2.34
 ```
@@ -214,6 +216,7 @@ For details about lld, see manual page.
 - https://lld.llvm.org/
 
 #### b-1. LLVM polly
+
 Polly is a LLVM Framework for High-Level Loop and Data-Locality Optimizations. You can enable polly just parsing "-O3 -mllvm -polly" options. 
 
 ```
@@ -223,16 +226,52 @@ clang -O3 -mllvm -polly file.c
 Runtime benchmark result To Be Measured.
 
 ### c. Install arm baremetal compiler on aarch64 linux
+
 Using "GNU Arm Embedded Toolchain Version 10-2020-q4-major" as example. You can check the latest version from here. 
 - https://developer.arm.com/tools-and-software/open-source-software/developer-tools/gnu-toolchain/gnu-rm/downloads
 
 ```
-user0@hc4armkk: cd odroidhc4-install/scripts && source ./install_compiler.sh
+user0@hc4armkk:~$ cd odroidhc4-install/scripts && source ./install_compiler.sh
 ```
 
 
 ## 5. Aarch64 v8.2A optimiztion tips
+
 Coming later...
+
+## 6. Docker private repository on Odroid HC4
+
+The goal is to utilize Odroid HC4 board as docker private repository server in local network. 
+
+### a. Docker Enging installation on Aarch64 Ubuntu.20.04
+
+Install the latest docker-ce on Ubuntu.20.04, detailed instruction is in docker docs.
+
+- https://matsuand.github.io/docs.docker.jp.onthefly/engine/install/ubuntu/
+
+```
+user0@hc4armkk:~$ sudo apt-get remove docker docker-engine docker.io containerd runc
+user0@hc4armkk:~$ sudo apt-get install -y \
+    apt-transport-https \
+    ca-certificates \
+    curl \
+    gnupg-agent \
+    software-properties-common
+user0@hc4armkk:~$ curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+user0@hc4armkk:~$ sudo apt-key fingerprint 0EBFCD88
+user0@hc4armkk:~$ sudo add-apt-repository \
+   "deb [arch=arm64] https://download.docker.com/linux/ubuntu \
+   $(lsb_release -cs) \
+   stable"
+user0@hc4armkk:~$ sudo apt-get install -y docker-ce docker-ce-cli containerd.io
+user0@hc4armkk:~$ sudo docker run hello-world
+```
+
+
+### b. Start private registroy service as contaier 
+
+
+### c. Testing to push/pull
 
 ## Revision history
 v1.0: initial version, 2021-Jan-19
