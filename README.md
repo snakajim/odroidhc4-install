@@ -82,16 +82,28 @@ To start with setting user0 profile, ssh connect to hc4armkk as root(accountmngr
 ```
 $> ssh accountmngr@hc4armkk
 password: <as_u_like>
+Welcome to Ubuntu 20.04.1 LTS (GNU/Linux 5.10.0-odroid-arm64 aarch64)
+
+ * Documentation:  https://help.ubuntu.com
+ * Management:     https://landscape.canonical.com
+ * Support:        https://ubuntu.com/advantage
+Last login: xx xx xx xx:xx:xx 20xx from xxx.xxx.xxx.xxx
+accountmngr@hc4armkk:~$
 ```
 
-Copy public key under /home/user0/.ssh by somehow and set it as authorized key to user0. After setting the public key, reboot.
+Copy public key under /home/user0/.ssh from your host consol(powershell/PuTTY/xterm/etc..).
 ```
-accountmngr@hc4armkk: sudo sh -c "cp <your_public_key> /home/user0/.ssh/<your_public_key> && cat <your_public_key> >> /home/user0/.ssh/authorized_keys"
-accountmngr@hc4armkk: sudo chown -R user0:user0 /home/user0 
-accountmngr@hc4armkk: reboot
+$> scp <your_public_key> accountmngr@hc4armkk:/tmp
 ```
 
-In your remote development environment such as Microsoft VS Code, add ssh configulation file which is usually in ${HOME}/.ssh/config
+SSH login as accountmngr@hc4armkk and add the public key to authorized key list to user0. After setting the public key, reboot.
+```
+accountmngr@hc4armkk:~$ sudo sh -c "cp <your_public_key> /home/user0/.ssh/<your_public_key> && cat <your_public_key> >> /home/user0/.ssh/authorized_keys"
+accountmngr@hc4armkk:~$ sudo chown -R user0:user0 /home/user0 
+accountmngr@hc4armkk:~$ reboot
+```
+
+To make easy access from your remote development environment such as Microsoft VS Code, Teraterm or PuTTY, it is nice idea to modify ssh configulation file which is usually stored in ${HOME}/.ssh/config
 ```
 Host hc4armkk
     HostName hc4armkk
@@ -103,19 +115,37 @@ Host hc4armkk
     ForwardX11 yes
 ```
 
-Now you are ready to connect from remote. Just choose "Remote SSH: Connect Host..." in VS Code Pull Down Window and select "hc4armkk" from the list. There are several articles in web about Remote SSH in VS Code, so please refer them as well. 
+Now you are ready to ssh by short cut. 
+```
+$> ssh hc4armkk
+(fingerprint check, etc... at first time)
+Welcome to Ubuntu 20.04.1 LTS (GNU/Linux 5.10.0-odroid-arm64 aarch64)
+
+ * Documentation:  https://help.ubuntu.com
+ * Management:     https://landscape.canonical.com
+ * Support:        https://ubuntu.com/advantage
+Last login: xx xx xx xx:xx:xx 20xx from xxx.xxx.xxx.xxx
+user0@hc4armkk:~$
+```
+
+Or choose "Remote SSH: Connect Host..." in VS Code Pull Down Window and select "hc4armkk" from the list. There are several articles in web about Remote SSH in VS Code, so please refer them as well. 
 
 Once you can successfully login as user0, let's run sample scripts under odroidhc4-install/scripts.
-
 ```
-user0@hc4armkk: cd ~/tmp && git clone https://github.com/snakajim/odroidhc4-install && cd ~/tmp/odroidhc4-install/scripts
-user0@hc4armkk: ls *.sh
-install_acl.sh  install_basic.sh  install_compiler.sh  install_lld.sh install_llvm.sh install_polly.sh
+user0@hc4armkk:~$ cd ~/tmp && git clone https://github.com/snakajim/odroidhc4-install && cd ~/tmp/odroidhc4-install/scripts
+user0@hc4armkk:~$ ls *.sh
+install_acl.sh  install_basic.sh  install_compiler.sh  install_lld.sh install_llvm.sh install_polly.sh run run_user0.sh
+```
+
+To batch running scripts, use run_user0.sh with at command for example.
+```
+user0@hc4armkk:~$ cd ~/tmp/odroidhc4-install/scripts
+user0@hc4armkk:~$ echo "./run_user0.sh > /dev/null 2>&1" | at now
 ```
 
 ### a. Install Arm Compute Library on aarch64 linux
 
-#### building ACL
+#### a-1. building ACL
 There is build issue with default compiler gcc (Ubuntu 9.3.0-17ubuntu1~20.04) 9.3.0. You need to change gcc-7 or clang-11.01. To utilzie v8.2A NEON feature, plese do not forget to set "arch=arm64-v8.2-a" and "neon=1" in scons args. Installation may take 5-6 hours.
 ```
 user0@hc4armkk: cd odroidhc4-install/scripts && source ./install_acl.sh
@@ -139,12 +169,13 @@ The latest LLVM tools, both clang-11 and lld-11, does not help for HC4 native co
 | clang-11 + lld-11 | 377            |1.30   |
 | gcc-7 + lld-11    | 288            |1.00   |
     
-#### running tests given in library
+#### a-2. running tests given in ACL
 
 - https://arm-software.github.io/ComputeLibrary/v20.11/tests.xhtml#tests_running_tests
 
+To check the list of test vectors, 
 ```
-user0@hc4armkk: cd ComputeLibrary/build/test && \
+user0@hc4armkk:~$ cd ComputeLibrary/build/test && \
 export LD_LIBRARY_PATH=${PWD}/..:$LD_LIBRARY_PATH && \
 ./arm_compute_benchmark --help
 ```
@@ -157,7 +188,7 @@ There is build issue with default compiler gcc (Ubuntu 9.3.0-17ubuntu1~20.04) 9.
 user0@hc4armkk: cd odroidhc4-install/scripts && source ./install_llvm.sh
 ```
 
-Or if you need just lld-11, 
+Or if you need lld-11 only, 
 ```
 user0@hc4armkk: cd odroidhc4-install/scripts && source ./install_lld.sh
 ```
@@ -182,7 +213,7 @@ GNU ld (GNU Binutils for Ubuntu) 2.34
 For details about lld, see manual page. 
 - https://lld.llvm.org/
 
-#### LLVM polly
+#### b-1. LLVM polly
 Polly is a LLVM Framework for High-Level Loop and Data-Locality Optimizations. You can enable polly just parsing "-O3 -mllvm -polly" options. 
 
 ```
