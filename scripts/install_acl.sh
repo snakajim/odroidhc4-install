@@ -35,7 +35,7 @@ if [ ! -d $ACL_ROOT_DIR/llvm ]; then
   mkdir -p $ACL_ROOT_DIR/llvm
 fi
 
-if [ -z $LLVM_DIR ] && [ -f $LLVM_DIR/bin/clang ] && [ $isDefault -eq 0 ]; then
+if [ -z $LLVM_DIR ] && [ -f $LLVM_DIR/bin/clang ] && [ $isDefault -eq "0" ]; then
   export CXX="$LLVM_DIR/bin/clang++"
   export CC="$LLVM_DIR/bin/clang"
   cd $ACL_ROOT_DIR/llvm
