@@ -27,3 +27,5 @@ cd $run_dir
 unset CXX
 unset CC
 /usr/bin/time -ao ./install_acl.llvm.log ./install_acl.sh >& ./install_acl.llvm.log
+sudo reboot
+
