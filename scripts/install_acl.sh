@@ -65,6 +65,16 @@ if [ -f $LLVM_DIR/bin/clang ] && [ $isDefault -eq "0" ]; then
   echo $txt_insert >> ./SConstruct 
   txt_insert="    env.Append(LINKFLAGS = ['-fuse-lld'])"
   echo "$txt_insert" >> ./SConstruct 
+
+  # case.4 
+  # To enable dptprod, replacing 
+  # elif 'v8.2-a' in env['arch']:
+  #      env.Append(CXXFLAGS = ['-march=armv8.2-a+fp16'])
+  # to
+  #elif 'v8.2-a' in env['arch']:
+  #      env.Append(CXXFLAGS = ['-march=armv8.2-a+fp16+dotprod'])
+  perl -pe 's/armv8\.2-a\+fp16'/armv8\.2-a\+fp16\+dotprod'/g' -i ./SConstruct 
+
 else
   echo "setting ${CXX} as \$CXX"
   cd $ACL_ROOT_DIR/gcc/ComputeLibrary
