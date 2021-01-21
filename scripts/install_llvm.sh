@@ -4,6 +4,17 @@
 # How to run:
 # $> \time -ao install_llvm.log ./install_llvm.sh >& install_llvm.log &
 #
+
+# ------------------------
+# check your clang version
+# ------------------------
+CLANG_VERSION=$(clang --version | awk 'NR<2 { print $3 }' | awk -F. '{printf "%2d%02d%02d", $1,$2,$3}')
+if [ $CLANG_VERSION -eq "110001" ]; then
+  echo "you have already had LLVM-11.0.1."
+  echo "skip installation."
+  exit
+fi
+
 export CXX="/usr/bin/g++-7"
 export CC="/usr/bin/gcc-7"
 
