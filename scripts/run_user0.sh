@@ -15,17 +15,17 @@ run_dir=${PWD}
 export CXX="/usr/bin/g++-7"
 export CC="/usr/bin/gcc-7"
 
-/usr/bin/time -ao ./install_acl.gcc.log ./install_acl.sh >& ./install_acl.gcc.log
+./install_acl.sh >& ./install_acl.gcc.log
 
 # install LLVM1101
 cd $run_dir
-/usr/bin/time -ao ./install_llvm.log ./install_llvm.sh >& ./install_llvm.log 
+./install_llvm.sh >& ./install_llvm.log 
 source ${HOME}/.bashrc
 
 # ACL with LLVM
 cd $run_dir
 unset CXX
 unset CC
-/usr/bin/time -ao ./install_acl.llvm.log ./install_acl.sh >& ./install_acl.llvm.log
+./install_acl.sh >& ./install_acl.llvm.log
 sudo reboot
 

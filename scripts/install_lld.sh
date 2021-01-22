@@ -34,24 +34,26 @@ unxz llvm-project-11.0.1.src.tar.xz && tar xf llvm-project-11.0.1.src.tar && \
   cd llvm-project-11.0.1.src && mkdir -p build && cd build
 echo "start LLVM1101 build"
 date
-if [ $OSNOW = "UBUNTU" ]; then 
-  cmake -G Ninja -G "Unix Makefiles"\
+if [ $OSNOW = "UBUNTU" ]; then
+  /usr/bin/time -av sh -c \ 
+  "cmake -G Ninja -G "Unix Makefiles"\
     -DCMAKE_C_COMPILER=$CC \
     -DCMAKE_CXX_COMPILER=$CXX \
     -DLLVM_ENABLE_PROJECTS="lld" \
     -DCMAKE_BUILD_TYPE=RELEASE \
     -DLLVM_TARGETS_TO_BUILD="ARM;AArch64"\
     -DCMAKE_INSTALL_PREFIX="/usr/local/llvm_1101" \
-    ../llvm && make -j4 && sudo make install
+    ../llvm && make -j4 && sudo make install"
 elif [ $OSNOW = "CENTOS" ]; then
-  cmake -G Ninja -G "Unix Makefiles"\
+  /usr/bin/time -av sh -c \
+  "cmake -G Ninja -G "Unix Makefiles"\
     -DCMAKE_C_COMPILER=$CC \
     -DCMAKE_CXX_COMPILER=$CXX \
     -DLLVM_ENABLE_PROJECTS="lld" \
     -DCMAKE_BUILD_TYPE=RELEASE \
     -DLLVM_TARGETS_TO_BUILD="ARM;AArch64"\
     -DCMAKE_INSTALL_PREFIX="/usr/local/llvm_1101" \
-    ../llvm && make -j4 && sudo make install
+    ../llvm && make -j4 && sudo make install"
 else
   echo "please set right choise in OS=$OSNOW.."
 fi
