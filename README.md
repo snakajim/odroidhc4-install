@@ -163,13 +163,18 @@ scons Werror=0 debug=0 asserts=0 arch=arm64-v8.2-a os=linux neon=1 opencl=1 exam
 ```
 
 The latest LLVM tools, both clang-11 and lld-11, does not help for HC4 native compile speed. 
+And if you rush to compile, x86_64 cross compile is the way. 
 
-| tool chain        | user time(min) | ratio |
-|-------------------|----------------|-------|
-| gcc-7 + ld        | 288            |1.00   |
-| clang-11 + lld-11 | 377            |1.30   |
-| gcc-7 + lld-11    | 288            |1.00   |
+|env     | tool chain                      | user time(min) | ratio |
+|--------|---------------------------------|----------------|-------|
+|native  | gcc-7 + ld                      | 288            |1.00   |
+|native  | clang-11 + lld-11               | 377            |1.30   |
+|native  | gcc-7 + lld-11                  | 288            |1.00   |
+|cross(*)| aarch64-none-linux-gnu-g++-10.2 | 79             |0.27   |
     
+(*) CentOS7 Docker container on Windows 10 Pro, assigning Core i5 v-CPUx4. You can access same version of cross compiler from here.
+- https://developer.arm.com/-/media/Files/downloads/gnu-a/10.2-2020.11/binrel/gcc-arm-10.2-2020.11-x86_64-aarch64-none-linux-gnu.tar.xz
+
 #### a-2. running tests given in ACL
 
 - https://arm-software.github.io/ComputeLibrary/v20.11/tests.xhtml#tests_running_tests
