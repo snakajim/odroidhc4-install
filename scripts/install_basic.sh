@@ -15,7 +15,7 @@ apt-get install -y xserver-xorg xterm telnet
 apt-get install -y unzip htop gettext aria2
 apt-get install -y locales-all cpanminus
 apt-get install -y avahi-daemon firewalld
-apt-get install -y scons libomp-dev
+apt-get install -y scons libomp-dev evince
 apt-get install -y gcc-7 g++-7
 apt-get install -y gcc-8 g++-8
 apt-get install -y gcc-10 g++-10

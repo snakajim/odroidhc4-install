@@ -78,7 +78,8 @@ fi
 # to
 #elif 'v8.2-a' in env['arch']:
 #      env.Append(CXXFLAGS = ['-march=armv8.2-a+fp16+dotprod'])
-perl -pe 's/armv8\.2-a\+fp16'/armv8\.2-a\+fp16\+dotprod'/g' -i ./SConstruct 
+perl -pe 's/armv8\.2-a\+fp16'/armv8\.2-a\+fp16\+dotprod'/g' -i ./SConstruct
+perl -pe 's/aarch64-linux-gnu-/aarch64-none-linux-gnu-/g' -i ./SConstruct 
 
 # Compile Arm Compute Library v20.11
 # Note: 
