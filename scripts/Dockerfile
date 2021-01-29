@@ -41,6 +41,7 @@ RUN sed -e 's/^firewall-cmd/#firewall-cmd/g' -i /root/tmp/odroidhc4-install/scri
 RUN sed -e 's/^reboot/#reboot/g' -i /root/tmp/odroidhc4-install/scripts/install_basic.sh
 # adding X86 in llvm target
 RUN sed -e 's/"ARM;AArch64"/"X86;ARM;AArch64"/' -i /root/tmp/odroidhc4-install/scripts/install_llvm.sh
+RUN sed -e 's/"ARM;AArch64"/"X86;ARM;AArch64"/' -i /root/tmp/odroidhc4-install/scripts/install_lld.sh
 # run install_basic to install basic tools
 RUN /root/tmp/odroidhc4-install/scripts/install_basic.sh
 
