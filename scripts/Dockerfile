@@ -34,11 +34,13 @@ RUN mkdir -p /root/tmp && \
   cd /root/tmp && \
   git clone https://github.com/snakajim/odroidhc4-install.git && \
   chmod -R +x odroidhc4-install && \
-  sed -e 's/\r//' -i /root/tmp/odroidhc4-install/scripts/install_basic.sh
+  sed -e 's/\r//' -i /root/tmp/odroidhc4-install/scripts/*.sh
 # disable system command which docker cannot support.
 RUN sed -e 's/^systemctl/#systemctl/g' -i /root/tmp/odroidhc4-install/scripts/install_basic.sh
 RUN sed -e 's/^firewall-cmd/#firewall-cmd/g' -i /root/tmp/odroidhc4-install/scripts/install_basic.sh
 RUN sed -e 's/^reboot/#reboot/g' -i /root/tmp/odroidhc4-install/scripts/install_basic.sh
+# adding X86 in llvm target
+RUN sed -e 's/"ARM;AArch64"/"X86;ARM;AArch64"/' -i /root/tmp/odroidhc4-install/scripts/install_llvm.sh
 # run install_basic to install basic tools
 RUN /root/tmp/odroidhc4-install/scripts/install_basic.sh
 
