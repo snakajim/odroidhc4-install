@@ -143,9 +143,9 @@ user0@hc4armkk:~$ cd ~/tmp/odroidhc4-install/scripts
 user0@hc4armkk:~$ echo "./run_user0.sh > /dev/null 2>&1" | at now
 ```
 
-### a. Install Arm Compute Library on aarch64 linux
+### 4-a. Install Arm Compute Library on aarch64 linux
 
-#### a-1. building ACL
+#### 4-a-1. building ACL
 
 There is build issue with default compiler gcc (Ubuntu 9.3.0-17ubuntu1~20.04) 9.3.0. You need to change gcc-7 or clang-11.01. To utilzie v8.2A NEON feature, plese do not forget to set "arch=arm64-v8.2-a" and "neon=1" in scons args. Installation may take 5-6 hours.
 ```
@@ -175,7 +175,7 @@ And if you rush to compile, x86_64 cross compile is the way.
 (*) CentOS7 Docker container on Windows 10 Pro, assigning Core i5 v-CPUx4. You can access same version of cross compiler from here.
 - https://developer.arm.com/-/media/Files/downloads/gnu-a/10.2-2020.11/binrel/gcc-arm-10.2-2020.11-x86_64-aarch64-none-linux-gnu.tar.xz
 
-#### a-2. running tests given in ACL
+#### 4-a-2. running tests given in ACL
 
 - https://arm-software.github.io/ComputeLibrary/v20.11/tests.xhtml#tests_running_tests
 
@@ -187,7 +187,7 @@ export LD_LIBRARY_PATH=${PWD}/..:$LD_LIBRARY_PATH && \
 ```
 
 
-### b. Install LLVM1101(clang/clang++/libcxx/libcxxabi/lld/openmp) on aarch64 linux
+### 4-b. Install LLVM1101(clang/clang++/libcxx/libcxxabi/lld/openmp) on aarch64 linux
 
 There is build issue with default compiler gcc (Ubuntu 9.3.0-17ubuntu1~20.04) 9.3.0. You need to change gcc-7 to build. Installation may take 5 hours. After install llvm, recommend to reboot.
 
@@ -220,7 +220,7 @@ GNU ld (GNU Binutils for Ubuntu) 2.34
 For details about lld, see manual page. 
 - https://lld.llvm.org/
 
-#### b-1. LLVM polly
+#### 4-b-1. LLVM polly
 
 Polly is a LLVM Framework for High-Level Loop and Data-Locality Optimizations. You can enable polly just parsing "-O3 -mllvm -polly" options. 
 
@@ -230,7 +230,7 @@ clang -O3 -mllvm -polly file.c
 
 Runtime benchmark result To Be Measured.
 
-### c. Install arm baremetal compiler on aarch64 linux
+### 4-c. Install arm baremetal compiler on aarch64 linux
 
 Using "GNU Arm Embedded Toolchain Version 10-2020-q4-major" as example. You can check the latest version from here. 
 - https://developer.arm.com/tools-and-software/open-source-software/developer-tools/gnu-toolchain/gnu-rm/downloads
@@ -248,7 +248,7 @@ Coming later...
 
 The goal is to utilize Odroid HC4 board as docker private repository server in local network. 
 
-### a. Docker Enging installation on Aarch64 Ubuntu.20.04
+### 6-a. Docker Enging installation on Aarch64 Ubuntu.20.04
 
 Install the latest docker-ce on Ubuntu.20.04, detailed instruction is in docker docs.
 
@@ -273,10 +273,12 @@ user0@hc4armkk:~$ sudo docker run hello-world
 ```
 
 
-### b. Start private registroy service as contaier 
+### 6-b. Start private registroy service as contaier 
+Coming soon...
 
+### 6-c. Testing to push/pull
+Coming soon...
 
-### c. Testing to push/pull
-
-## Revision history
+## Appendix Revision history
+v1.1: update for stability, 2020-Jan-29
 v1.0: initial version, 2021-Jan-19
