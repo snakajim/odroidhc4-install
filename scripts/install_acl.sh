@@ -4,13 +4,20 @@
 # How to use:
 # $> \time -ao install_acl.log ./install_acl.sh >& install_acl.log &
 #
+ARCH=`arch`
 
 # Downlaod and install
 #
 ACL_ROOT_DIR=${HOME}/work
 
 # Get Force scon using clang or gcc-7. 
-# 
+#
+if [ $ARCH = "x86_64" ]; then
+  echo "Cross compile on x86_64 linux system."
+  unset CC
+  unset CXX
+  isDefault=1
+else 
 if [ -n "$CXX" ] && [ -n "$CC" ]; then
   echo "Default compiler setting is found in system."
   echo "Use the Default setting for compile. cpp=$CXX and cc=$CC."
@@ -21,6 +28,7 @@ else
   export CC="/usr/bin/gcc-7"
   echo "Forcing compiler to cpp=$CXX and cc=$CC."
   isDefault=0
+fi
 fi
 
 if [ ! -d $ACL_ROOT_DIR/gcc ]; then

@@ -86,6 +86,8 @@ fi
 
 source ${HOME}/.bashrc
 
+sudo ldconfig -v
+
 if [ -z $LLVM_DIR ] && [ -f $LLVM_DIR/bin/lld ]; then
   sudo rm /usr/bin/ld
   sudo ln -s $LLVM_DIR/bin/lld /usr/bin/ld
