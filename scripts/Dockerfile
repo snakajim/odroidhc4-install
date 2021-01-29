@@ -42,6 +42,7 @@ RUN sed -e 's/^reboot/#reboot/g' -i /root/tmp/odroidhc4-install/scripts/install_
 # adding X86 in llvm target
 RUN sed -e 's/"ARM;AArch64"/"X86;ARM;AArch64"/' -i /root/tmp/odroidhc4-install/scripts/install_llvm.sh
 RUN sed -e 's/"ARM;AArch64"/"X86;ARM;AArch64"/' -i /root/tmp/odroidhc4-install/scripts/install_lld.sh
+RUN sed -e 's/build=native //' -i /root/tmp/odroidhc4-install/scripts/install_acl.sh
 # run install_basic to install basic tools
 RUN /root/tmp/odroidhc4-install/scripts/install_basic.sh
 
