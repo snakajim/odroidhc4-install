@@ -25,7 +25,7 @@ ENV TZ=Asia/Tokyo
 # 
 RUN apt-get -y update
 RUN apt-get install -y build-essential 
-RUN apt-get install -y git
+RUN apt-get install -y git sudo
 RUN apt-get install -y apt-utils locales locales-all
 RUN dpkg-reconfigure locales
 RUN echo "hc4armkk" > /etc/hostname
