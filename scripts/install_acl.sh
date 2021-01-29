@@ -95,8 +95,13 @@ perl -pe 's/aarch64-linux-gnu-/aarch64-none-linux-gnu-/g' -i ./SConstruct
 #   Please set Werror=0 or -Wno-deprecated-copy in SConstruct manually.
 #
 echo "start ACL build at ${PWD}"
-date 
-/usr/bin/time -av sh -c \
-  "scons Werror=0 debug=0 asserts=0 arch=arm64-v8.2-a os=linux neon=1 opencl=1 examples=1 build=native pmu=1 benchmark_tests=1 -j4"
-echo "end ACL build at ${PWD}"
+date
+if [ $ARCH = "x86_64" ]; then 
+  /usr/bin/time -av sh -c \
+    "scons Werror=0 debug=0 asserts=0 arch=arm64-v8.2-a os=linux neon=1 opencl=1 examples=1 pmu=1 benchmark_tests=1 -j4"
+  echo "end ACL build at ${PWD}"
+else
+  /usr/bin/time -av sh -c \
+    "scons Werror=0 debug=0 asserts=0 arch=arm64-v8.2-a os=linux neon=1 opencl=1 examples=1 build=native pmu=1 benchmark_tests=1 -j4"
+  echo "end ACL build at ${PWD}"
 date
