@@ -10,7 +10,7 @@
 # 1. To build
 # $> docker build -t ubuntu_ipss --no-cache=true .
 # 2. To run as "user"
-# $> docker run -it --name eda -u user --privileged --restart=always -d --net host ubuntu_ipss sh
+# $> docker run -it --name eda -u user0 --privileged --restart=always -d --net host ubuntu_ipss sh
 #
 #
 FROM ubuntu:20.04
@@ -28,6 +28,7 @@ RUN apt-get install -y build-essential
 RUN apt-get install -y git
 RUN apt-get install -y apt-utils locales locales-all
 RUN dpkg-reconfigure locales
+RUN echo "hc4armkk" > /etc/hostname
 #
 RUN mkdir -p /root/tmp && \
   cd /root/tmp && \
