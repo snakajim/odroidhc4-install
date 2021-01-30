@@ -280,5 +280,5 @@ Coming soon...
 Coming soon...
 
 ## Appendix Revision history
-- v1.1: update for stability, 2020-Jan-29
+- v1.1: update for stability and multi-platform support(Win10 docker and RPi4 native), 2020-Jan-30
 - v1.0: initial version, 2021-Jan-19
