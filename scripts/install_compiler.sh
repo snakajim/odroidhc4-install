@@ -53,7 +53,7 @@ if [ $ARCH = "x86_64" ]; then
   if [ $ret -eq 1 ]; then 
     cd ${HOME} && \
       echo "# x86_64 host linux to install Cortex-A profile linux ABI cross compiler." >> .bashrc
-      echo "export PATH=\$PATH:/usr/local/gcc-linaro-7.5.0-2019.12/bin" >> .bashrc
+      echo "export PATH=\$PATH:/usr/local/gcc-linaro-7.5-2019.12/bin" >> .bashrc
   fi
 
 else
