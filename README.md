@@ -275,7 +275,13 @@ user0@hc4armkk:~$ sudo docker run hello-world
 ```
 
 
-### 6-b. Start private registroy service as contaier 
+### 6-b. Start docker private registroy service  
+Docker private registry service is using docker registry contaier provided by docker.
+
+- https://hub.docker.com/_/registry/
+
+https://www.itmedia.co.jp/enterprise/articles/1708/10/news052_3.html
+
 Coming soon...
 
 ### 6-c. Testing to push/pull
