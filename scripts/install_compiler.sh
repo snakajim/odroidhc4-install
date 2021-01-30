@@ -24,6 +24,12 @@ if [ $ARCH = "x86_64" ]; then
   #sudo sh -c "cd /usr/local && tar vxf ${HOME}/tmp/gcc-linaro-7.5.0-2019.12-i686_aarch64-linux-gnu.tar.xz"
   cd ${HOME}/tmp && rm -rf gcc-linaro-7.5-2019.12.tar.xz && \
   aria2c -x6 http://releases.linaro.org/components/toolchain/gcc-linaro/7.5-2019.12/gcc-linaro-7.5-2019.12.tar.xz
+  mkdir -p ${HOME}/tmp/gcc-linaro-7.5-2019.12/build
+  cd ${HOME}/tmp/gcc-linaro-7.5-2019.12/build && \
+    ../configure --enable-languages=c,c++ \
+    --prefix=/usr/local/gcc-linaro-7.5-2019.12 \
+    --disable-bootstrap \
+    --disable-multilib && make -j4 && sudo make install
 
   #
   # set path
@@ -47,7 +53,7 @@ if [ $ARCH = "x86_64" ]; then
   if [ $ret -eq 1 ]; then 
     cd ${HOME} && \
       echo "# x86_64 host linux to install Cortex-A profile linux ABI cross compiler." >> .bashrc
-      echo "export PATH=\$PATH:/usr/local/gcc-linaro-7.5.0-2019.12-i686_aarch64-linux-gnu/bin" >> .bashrc
+      echo "export PATH=\$PATH:/usr/local/gcc-linaro-7.5.0-2019.12/bin" >> .bashrc
   fi
 
 else
