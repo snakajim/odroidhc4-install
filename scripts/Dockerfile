@@ -39,21 +39,22 @@ RUN mkdir -p /root/tmp && \
 RUN sed -e 's/^systemctl/#systemctl/g' -i /root/tmp/odroidhc4-install/scripts/install_basic.sh
 RUN sed -e 's/^firewall-cmd/#firewall-cmd/g' -i /root/tmp/odroidhc4-install/scripts/install_basic.sh
 RUN sed -e 's/^reboot/#reboot/g' -i /root/tmp/odroidhc4-install/scripts/install_basic.sh
+RUN sed -e 's/^sudo reboot/#sudo reboot/g' -i /root/tmp/odroidhc4-install/scripts/run_user0.sh
 # adding X86 in llvm target
 RUN sed -e 's/"ARM;AArch64"/"X86;ARM;AArch64"/' -i /root/tmp/odroidhc4-install/scripts/install_llvm.sh
 RUN sed -e 's/"ARM;AArch64"/"X86;ARM;AArch64"/' -i /root/tmp/odroidhc4-install/scripts/install_lld.sh
 
-# (optional) run install_basic.sh to install basic tools as root
+# (recommended) run install_basic.sh to install basic tools as root
 RUN /root/tmp/odroidhc4-install/scripts/install_basic.sh
-
-# (optional) run install_llvm.sh to install llvm as user0
 RUN cp -rf /root/tmp/odroidhc4-install/scripts /home/user0/work
 RUN chown -R user0:user0 /home/user0/work
-RUN sudo -u user0 sh -c "\${HOME}/work/scripts/install_llvm.sh" 
 
 # (optional) run install_compiler.sh to install aarch64-none-linux-gnu as user0
-RUN sudo -u user0 sh -c "\${HOME}/work/scripts/install_compiler.sh" 
+RUN sudo -u user0 sh -c "\${HOME}/work/scripts/install_compiler.sh"
 
+# (optional) run acl build as user0
+RUN sudo -u user0 sh -c "\${HOME}/work/scripts/run_user0.sh" 
+ 
 #  ---------------------------------------------------------------------------------
 # reset container
 #  ---------------------------------------------------------------------------------
