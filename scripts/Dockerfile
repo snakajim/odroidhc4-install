@@ -48,6 +48,7 @@ RUN sed -e 's/"ARM;AArch64"/"X86;ARM;AArch64"/g' -i /root/tmp/odroidhc4-install/
 RUN /root/tmp/odroidhc4-install/scripts/install_basic.sh
 RUN cp -rf /root/tmp/odroidhc4-install/scripts /home/user0/work
 RUN chown -R user0:user0 /home/user0/work
+RUN chmod -R +xwr /home/user0/work
 
 # (optional) run install_compiler.sh to install aarch64-none-linux-gnu as user0
 RUN sudo -u user0 sh -c "\${HOME}/work/scripts/install_compiler.sh"
