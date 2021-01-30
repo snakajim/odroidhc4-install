@@ -84,13 +84,11 @@ if [ $ret -eq 1 ]; then
   echo "export LD_LIBRARY_PATH=\$LLVM_DIR/lib:\$LD_LIBRARY_PATH" >>  ${HOME}/.bashrc
 fi
 
-source ${HOME}/.bashrc
-
 sudo ldconfig -v
 
-if [ -z $LLVM_DIR ] && [ -f $LLVM_DIR/bin/lld ]; then
+if [ -f /usr/local/llvm_1101/bin/lld ]; then
   sudo rm /usr/bin/ld
-  sudo ln -s $LLVM_DIR/bin/lld /usr/bin/ld
+  sudo ln -s /usr/local/llvm_1101/bin/lld /usr/bin/ld
 fi
 
 echo "LLVM compile & install done"
