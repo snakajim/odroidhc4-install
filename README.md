@@ -172,7 +172,7 @@ And if you rush to compile, x86_64 cross compile is the way.
 |native  | gcc-7 + lld-11                       | 288            |1.00   |
 |cross(*)| aarch64-none-linux-gnu-g++-10.2      | 79             |0.27   |
 |native-RPi4-4G Ubuntu20.04  | gcc-7 + ld       | 237            |0.82   |
-|native-RPi4-4G Ubuntu20.04  | clang-11 + lld-11|             |   |
+|native-RPi4-4G Ubuntu20.04  | clang-11 + lld-11| 312            |1.08   |
     
 (*) CentOS7 Docker container on Windows 10 Pro, assigning Core i5 v-CPUx4. You can access same version of cross compiler from here.
 - https://developer.arm.com/-/media/Files/downloads/gnu-a/10.2-2020.11/binrel/gcc-arm-10.2-2020.11-x86_64-aarch64-none-linux-gnu.tar.xz
