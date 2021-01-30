@@ -5,6 +5,7 @@
 # $> \time -ao install_acl.log ./install_acl.sh >& install_acl.log &
 #
 ARCH=`arch`
+source ${HOME}/.bashrc
 
 # Downlaod and install
 #
