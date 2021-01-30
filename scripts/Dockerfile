@@ -52,7 +52,10 @@ RUN sudo -u user0 sh -c "chmod -R +xwr \${HOME}/work"
 
 # (optional) run install_compiler.sh to install aarch64-none-linux-gnu as user0
 RUN sudo -u user0 sh -c "\${HOME}/work/scripts/install_compiler.sh"
- 
+
+# (optional) run install_llvm.sh to install llvm-11 as user0
+RUN sudo -u user0 sh -c "\${HOME}/work/scripts/install_llvm.sh"
+
 #  ---------------------------------------------------------------------------------
 # reset container
 #  ---------------------------------------------------------------------------------
