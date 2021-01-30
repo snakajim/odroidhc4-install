@@ -39,6 +39,10 @@ firewall-cmd --reload
 systemctl start atd
 systemctl enable atd
 
+# set CLI as default
+systemctl set-default multi-user.target
+#systemctl set-default graphical.target
+
 # install gnu mailutils in CLI
 cd /usr/local/src && \
 aria2c -x10 https://ftp.gnu.org/gnu/mailutils/mailutils-3.11.1.tar.gz && \
