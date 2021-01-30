@@ -31,7 +31,7 @@ else
   fi
 fi
 
-if [ ! -d $ACL_ROOT_DIR/gcc ]; then
+if [ ! -d $ACL_ROOT_DIR/gcc/ComputeLibrary ]; then
   mkdir -p $ACL_ROOT_DIR/gcc
   cd $ACL_ROOT_DIR/gcc
   if [ ! -d $ACL_ROOT_DIR/gcc/ComputeLibrary ]; then
