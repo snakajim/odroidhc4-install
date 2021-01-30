@@ -1,5 +1,5 @@
 #!/bin/bash
-# This script is only tested in Aarch64 Ubuntu 20.04 LTS
+# This script is only tested in Aarch64 & x86_64 Ubuntu 20.04 LTS
 # How to run:
 # $> chmod +x * && sudo sh -c ./install_basic.sh
 #

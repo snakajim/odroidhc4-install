@@ -18,17 +18,17 @@ if [ $ARCH = "x86_64" ]; then
   unset CXX
   isDefault=1
 else 
-if [ -n "$CXX" ] && [ -n "$CC" ]; then
-  echo "Default compiler setting is found in system."
-  echo "Use the Default setting for compile. cpp=$CXX and cc=$CC."
-  isDefault=1
-else
-  echo "Default compiler is not set, cpp=$CXX, cc=$CC" 
-  export CXX="/usr/bin/g++-7"
-  export CC="/usr/bin/gcc-7"
-  echo "Forcing compiler to cpp=$CXX and cc=$CC."
-  isDefault=0
-fi
+  if [ -n "$CXX" ] && [ -n "$CC" ]; then
+    echo "Default compiler setting is found in system."
+    echo "Use the Default setting for compile. cpp=$CXX and cc=$CC."
+    isDefault=1
+  else
+    echo "Default compiler is not set, cpp=$CXX, cc=$CC" 
+    export CXX="/usr/bin/g++-7"
+    export CC="/usr/bin/gcc-7"
+    echo "Forcing compiler to cpp=$CXX and cc=$CC."
+    isDefault=0
+  fi
 fi
 
 if [ ! -d $ACL_ROOT_DIR/gcc ]; then
@@ -73,7 +73,6 @@ if [ -f $LLVM_DIR/bin/clang ] && [ $isDefault -eq "0" ]; then
   echo $txt_insert >> ./SConstruct 
   txt_insert="    env.Append(LINKFLAGS = ['-fuse-lld'])"
   echo "$txt_insert" >> ./SConstruct 
-
 else
   echo "setting ${CXX} as \$CXX"
   cd $ACL_ROOT_DIR/gcc/ComputeLibrary
@@ -87,7 +86,6 @@ fi
 #elif 'v8.2-a' in env['arch']:
 #      env.Append(CXXFLAGS = ['-march=armv8.2-a+fp16+dotprod'])
 perl -pe 's/armv8\.2-a\+fp16'/armv8\.2-a\+fp16\+dotprod'/g' -i ./SConstruct
-perl -pe 's/aarch64-linux-gnu-/aarch64-none-linux-gnu-/g' -i ./SConstruct 
 
 # Compile Arm Compute Library v20.11
 # Note: 
@@ -104,4 +102,5 @@ else
   /usr/bin/time -av sh -c \
     "scons Werror=0 debug=0 asserts=0 arch=arm64-v8.2-a os=linux neon=1 opencl=1 examples=1 build=native pmu=1 benchmark_tests=1 -j4"
   echo "end ACL build at ${PWD}"
+fi
 date

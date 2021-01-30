@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# This script is tested on Aarch64 Ubuntu20.04 LTS only. 
+# This script is tested on Aarch64 & x86_64 Ubuntu20.04 LTS only. 
 # How to run:
 # $> \time -ao install_llvm.log ./install_llvm.sh >& install_llvm.log &
 #

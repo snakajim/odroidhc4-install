@@ -42,13 +42,17 @@ RUN sed -e 's/^reboot/#reboot/g' -i /root/tmp/odroidhc4-install/scripts/install_
 # adding X86 in llvm target
 RUN sed -e 's/"ARM;AArch64"/"X86;ARM;AArch64"/' -i /root/tmp/odroidhc4-install/scripts/install_llvm.sh
 RUN sed -e 's/"ARM;AArch64"/"X86;ARM;AArch64"/' -i /root/tmp/odroidhc4-install/scripts/install_lld.sh
-# set to cross compile. If you choose arm64v8/ubuntu:20.04, please comment out this line.
-RUN sed -e 's/aarch64-none-linux-gnu-/arm-none-eabi-/' -i /home/user0/work/scripts/install_acl.sh
-# run install_basic.sh to install basic tools at root
+
+# (optional) run install_basic.sh to install basic tools at root
 RUN /root/tmp/odroidhc4-install/scripts/install_basic.sh
-# run install_llvm.sh to install llvm at user0
+
+# (optional) run install_llvm.sh to install llvm at user0
 RUN cp -rf /root/tmp/odroidhc4-install/scripts /home/user0/work
-RUN sudo -u user0 sh -c "source /home/user0/work/scripts/work/install_llvm.sh" 
+RUN chown -R user0:user0 /home/user0/work
+RUN sudo -u user0 sh -c "\${HOME}/work/scripts/install_llvm.sh" 
+
+# (optional) run install_compiler.sh to install aarch64-none-linux-gnu at user0
+RUN sudo -u user0 sh -c "\${HOME}/work/scripts/install_compiler.sh" 
 
 #  ---------------------------------------------------------------------------------
 # reset container
