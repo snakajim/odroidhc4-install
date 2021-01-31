@@ -18,36 +18,6 @@ if [ $ARCH = "x86_64" ]; then
   aria2c -x6 https://developer.arm.com/-/media/Files/downloads/gnu-rm/10-2020q4/gcc-arm-none-eabi-10-2020-q4-major-x86_64-linux.tar.bz2
   sudo sh -c "cd /usr/local && tar vxf ${HOME}/tmp/gcc-arm-none-eabi-10-2020-q4-major-x86_64-linux.tar.bz2"
   
-  echo "x86_64 host linux to install Aarch64 linux cross compiler from Linaro."
-  #
-  #Note: Birary download is broken in Ubuntu20.04 system, so need to build from source.
-  #Note: See odroidhc4-install/scripts/install_gmp_mprf.sh.
-  #Note: If you still fail in build from source, please compromise to use packaged version(but older gcc). 
-  #Note: $> sudo apt-get install -y g++-aarch64-linux-gnu
-  #
-  #cd ${HOME}/tmp && rm -rf gcc-linaro-7.5.0-2019.12-i686_aarch64-linux-gnu.tar.xz && \
-  #aria2c -x6 https://releases.linaro.org/components/toolchain/binaries/latest-7/aarch64-linux-gnu/gcc-linaro-7.5.0-2019.12-i686_aarch64-linux-gnu.tar.xz
-  #sudo sh -c "cd /usr/local && tar vxf ${HOME}/tmp/gcc-linaro-7.5.0-2019.12-i686_aarch64-linux-gnu.tar.xz"
-  cd ${HOME}/tmp && rm -rf gcc-linaro-7.5-2019.12.tar.xz && \
-  aria2c -x6 http://releases.linaro.org/components/toolchain/gcc-linaro/7.5-2019.12/gcc-linaro-7.5-2019.12.tar.xz && \
-  tar xvf gcc-linaro-7.5-2019.12.tar.zx
-  mkdir -p ${HOME}/tmp/gcc-linaro-7.5-2019.12/build
-  if [ -d /usr/local/linaro ]; then 
-    cd ${HOME}/tmp/gcc-linaro-7.5-2019.12/build && \
-      ../configure --enable-languages=c,c++ \
-      --prefix=/usr/local/gcc-linaro-7.5-2019.12 \
-      --with-gmp=/usr/local/linaro \
-      --with-mpfr=/usr/local/linaro \ 
-      --with-mpc==/usr/local/linaro \
-      --disable-bootstrap \
-      --disable-multilib && make -j4 && sudo make install
-  else
-    cd ${HOME}/tmp/gcc-linaro-7.5-2019.12/build && \
-      ../configure --enable-languages=c,c++ \
-      --prefix=/usr/local/gcc-linaro-7.5-2019.12 \
-      --disable-bootstrap \
-      --disable-multilib && make -j4 && sudo make install
-  fi
   #
   # set path
   #
@@ -64,13 +34,6 @@ if [ $ARCH = "x86_64" ]; then
     cd ${HOME} && \
       echo "# x86_64 host linux to install Cortex-R/M profile bare-metal cross compiler." >> .bashrc
       echo "export PATH=\$PATH:/usr/local/gcc-arm-none-eabi-10-2020-q4-major/bin" >> .bashrc
-  fi
-  grep "aarch64-linux-gnu" ${HOME}/.bashrc
-  ret=$?
-  if [ $ret -eq 1 ]; then 
-    cd ${HOME} && \
-      echo "# x86_64 host linux to install Cortex-A profile linux ABI cross compiler." >> .bashrc
-      echo "export PATH=\$PATH:/usr/local/gcc-linaro-7.5-2019.12/bin" >> .bashrc
   fi
 
 else
