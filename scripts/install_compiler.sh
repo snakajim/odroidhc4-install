@@ -19,11 +19,14 @@ if [ $ARCH = "x86_64" ]; then
   sudo sh -c "cd /usr/local && tar vxf ${HOME}/tmp/gcc-arm-none-eabi-10-2020-q4-major-x86_64-linux.tar.bz2"
   
   echo "x86_64 host linux to install Aarch64 linux cross compiler from Linaro."
+  #Note: Birary download is broken in Ubuntu20.04 system, so need to build from source.
+  #Note: See odroidhc4-install/scripts/install_gmp_mprf.sh.
   #cd ${HOME}/tmp && rm -rf gcc-linaro-7.5.0-2019.12-i686_aarch64-linux-gnu.tar.xz && \
   #aria2c -x6 https://releases.linaro.org/components/toolchain/binaries/latest-7/aarch64-linux-gnu/gcc-linaro-7.5.0-2019.12-i686_aarch64-linux-gnu.tar.xz
   #sudo sh -c "cd /usr/local && tar vxf ${HOME}/tmp/gcc-linaro-7.5.0-2019.12-i686_aarch64-linux-gnu.tar.xz"
   cd ${HOME}/tmp && rm -rf gcc-linaro-7.5-2019.12.tar.xz && \
-  aria2c -x6 http://releases.linaro.org/components/toolchain/gcc-linaro/7.5-2019.12/gcc-linaro-7.5-2019.12.tar.xz
+  aria2c -x6 http://releases.linaro.org/components/toolchain/gcc-linaro/7.5-2019.12/gcc-linaro-7.5-2019.12.tar.xz && \
+  tar xvf gcc-linaro-7.5-2019.12
   mkdir -p ${HOME}/tmp/gcc-linaro-7.5-2019.12/build
   if [ -d /usr/local/linaro ]; then 
     cd ${HOME}/tmp/gcc-linaro-7.5-2019.12/build && \
@@ -35,8 +38,11 @@ if [ $ARCH = "x86_64" ]; then
       --disable-bootstrap \
       --disable-multilib && make -j4 && sudo make install
   else
-    echo "You need to install linaro-gcc compile infrastructure to complete the build."
-    echo "See https://releases.linaro.org/components/toolchain/gcc-linaro/latest-7/ "
+    cd ${HOME}/tmp/gcc-linaro-7.5-2019.12/build && \
+      ../configure --enable-languages=c,c++ \
+      --prefix=/usr/local/gcc-linaro-7.5-2019.12 \
+      --disable-bootstrap \
+      --disable-multilib && make -j4 && sudo make install
   fi
   #
   # set path

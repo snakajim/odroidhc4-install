@@ -28,6 +28,7 @@ RUN apt-get install -y build-essential
 RUN apt-get install -y git sudo
 RUN apt-get install -y apt-utils locales locales-all
 RUN dpkg-reconfigure locales
+RUN apt-get install -y libgmp-dev libmpfr-dev libmpc-dev
 RUN echo "hc4armkk" > /etc/hostname
 #
 RUN mkdir -p /root/tmp && \
