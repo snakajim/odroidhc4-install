@@ -25,12 +25,19 @@ if [ $ARCH = "x86_64" ]; then
   cd ${HOME}/tmp && rm -rf gcc-linaro-7.5-2019.12.tar.xz && \
   aria2c -x6 http://releases.linaro.org/components/toolchain/gcc-linaro/7.5-2019.12/gcc-linaro-7.5-2019.12.tar.xz
   mkdir -p ${HOME}/tmp/gcc-linaro-7.5-2019.12/build
-  cd ${HOME}/tmp/gcc-linaro-7.5-2019.12/build && \
-    ../configure --enable-languages=c,c++ \
-    --prefix=/usr/local/gcc-linaro-7.5-2019.12 \
-    --disable-bootstrap \
-    --disable-multilib && make -j4 && sudo make install
-
+  if [ -d /usr/local/linaro ]; then 
+    cd ${HOME}/tmp/gcc-linaro-7.5-2019.12/build && \
+      ../configure --enable-languages=c,c++ \
+      --prefix=/usr/local/gcc-linaro-7.5-2019.12 \
+      --with-gmp=/usr/local/linaro \
+      --with-mpfr=/usr/local/linaro \ 
+      --with-mpc==/usr/local/linaro \
+      --disable-bootstrap \
+      --disable-multilib && make -j4 && sudo make install
+  else
+    echo "You need to install linaro-gcc compile infrastructure to complete the build."
+    echo "See https://releases.linaro.org/components/toolchain/gcc-linaro/latest-7/ "
+  fi
   #
   # set path
   #

@@ -18,11 +18,11 @@ mkdir -p ${HOME}/tmp/linaro/gmp-6.1.0/build && cd ${HOME}/tmp/linaro/gmp-6.1.0/b
 
 
 # install MPRF 3.1.4
-tar xvf mpfr-3.1.4.tar.bz2 && cd mpfr-3.1.4 
+tar xvf ${HOME}/tmp/linaro/mpfr-3.1.4.tar.bz2 -C ${HOME}/tmp/linaro && cd ${HOME}/tmp/linaro/mpfr-3.1.4 
 mkdir -p ${HOME}/tmp/linaro/mpfr-3.1.4/build && cd ${HOME}/tmp/linaro/mpfr-3.1.4/build
 ../configure --prefix=/usr/local/linaro && make -j4 && make check && sudo make install
 
 # install MPC 1.0.3
-tar xvf mpc-1.0.3.tar.gz && cd mpc-1.0.3 
+tar xvf ${HOME}/tmp/linaro/mpc-1.0.3.tar.gz -C ${HOME}/tmp/linaro && cd ${HOME}/tmp/linaro/mpc-1.0.3 
 mkdir -p ${HOME}/tmp/linaro/mpc-1.0.3/build && cd ${HOME}/tmp/linaro/mpc-1.0.3/build
 ../configure --prefix=/usr/local/linaro && make -j4 && make check && sudo make install
