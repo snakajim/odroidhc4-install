@@ -77,8 +77,9 @@ systemctl restart sshd
 # add "user0" without passward.
 # you can replace "user0" to your favorite user account later.
 #
-useradd -m user0 && passwd -d user0 && \
-usermod -aG wheel user0 && usermod -aG docker user0
+useradd -m user0 && passwd -d user0
+usermod -aG wheel user0
+usermod -aG docker user0
 gpasswd -a user0 sudo && chsh -s /bin/bash user0
 mkdir -p /home/user0/tmp && mkdir -p /home/user0/work && mkdir -p /home/user0/.ssh
 touch /home/user0/.ssh/authorized_keys
