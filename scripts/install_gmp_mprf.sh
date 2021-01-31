@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# Download and install GMP(>4.2). MPRF(>2.4.0) and MPC(>0.8.0) to compile gcc.
+# Download and install GMP(>4.2). MPRF(>2.4.0) and MPC(>0.8.0) to compile linaro gcc-7.
 # https://releases.linaro.org/components/toolchain/gcc-linaro/latest-7/
 #
 # source from  

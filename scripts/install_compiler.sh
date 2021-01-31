@@ -19,8 +19,12 @@ if [ $ARCH = "x86_64" ]; then
   sudo sh -c "cd /usr/local && tar vxf ${HOME}/tmp/gcc-arm-none-eabi-10-2020-q4-major-x86_64-linux.tar.bz2"
   
   echo "x86_64 host linux to install Aarch64 linux cross compiler from Linaro."
+  #
   #Note: Birary download is broken in Ubuntu20.04 system, so need to build from source.
   #Note: See odroidhc4-install/scripts/install_gmp_mprf.sh.
+  #Note: If you still fail in build from source, please compromise to use packaged version(but older gcc). 
+  #Note: $> sudo apt-get install -y g++-aarch64-linux-gnu
+  #
   #cd ${HOME}/tmp && rm -rf gcc-linaro-7.5.0-2019.12-i686_aarch64-linux-gnu.tar.xz && \
   #aria2c -x6 https://releases.linaro.org/components/toolchain/binaries/latest-7/aarch64-linux-gnu/gcc-linaro-7.5.0-2019.12-i686_aarch64-linux-gnu.tar.xz
   #sudo sh -c "cd /usr/local && tar vxf ${HOME}/tmp/gcc-linaro-7.5.0-2019.12-i686_aarch64-linux-gnu.tar.xz"
