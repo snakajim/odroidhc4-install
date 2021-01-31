@@ -254,26 +254,26 @@ The goal is to utilize Odroid HC4 board as docker private repository server in l
 
 Install the latest docker-ce on Ubuntu.20.04, detailed instruction is in docker docs.
 
-- https://matsuand.github.io/docs.docker.jp.onthefly/engine/install/ubuntu/
+- https://docs.docker.com/engine/install/ubuntu/
+
+Or Ubuntu-20.04 has already prepared docker in repo, so use it.
 
 ```
-user0@hc4armkk:~$ sudo apt-get remove docker docker-engine docker.io containerd runc
-user0@hc4armkk:~$ sudo apt-get install -y \
-    apt-transport-https \
-    ca-certificates \
-    curl \
-    gnupg-agent \
-    software-properties-common
-user0@hc4armkk:~$ curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
-user0@hc4armkk:~$ sudo apt-key fingerprint 0EBFCD88
-user0@hc4armkk:~$ sudo add-apt-repository \
-   "deb [arch=arm64] https://download.docker.com/linux/ubuntu \
-   $(lsb_release -cs) \
-   stable"
-user0@hc4armkk:~$ sudo apt-get install -y docker-ce docker-ce-cli containerd.io
-user0@hc4armkk:~$ sudo docker run hello-world
+user0@hc4armkk:~$ sudo apt-get install -y docker.io
+user0@hc4armkk:~$ sudo gpasswd -a $USER docker
+user0@hc4armkk:~$ sudo chmod 666 /var/run/docker.sock
 ```
 
+Assume your install is done, make sure that docker.service daemon is hot and you can run hello-world without sudo permission.
+
+```
+user0@hc4armkk:~$  sudo systemctl status docker.service
+● docker.service - Docker Application Container Engine
+     Loaded: loaded (/lib/systemd/system/docker.service; disabled; vendor preset: enabled)
+     Active: active (running)
+     ....
+user0@hc4armkk:~$ docker run hello-world
+```
 
 ### 6-b. Start docker private registroy service  
 Docker private registry service is using docker registry contaier provided by docker.

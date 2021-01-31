@@ -88,4 +88,5 @@ echo "# Privilege specification for user0" >> /etc/sudoers
 echo "user0    ALL=NOPASSWD: ALL" >> /etc/sudoers
 apt-get autoremove -y
 apt-get clean
+echo "install_basic.sh completed, system reboot."
 reboot
