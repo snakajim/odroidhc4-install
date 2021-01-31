@@ -26,7 +26,7 @@ if [ $ARCH = "x86_64" ]; then
   #sudo sh -c "cd /usr/local && tar vxf ${HOME}/tmp/gcc-linaro-7.5.0-2019.12-i686_aarch64-linux-gnu.tar.xz"
   cd ${HOME}/tmp && rm -rf gcc-linaro-7.5-2019.12.tar.xz && \
   aria2c -x6 http://releases.linaro.org/components/toolchain/gcc-linaro/7.5-2019.12/gcc-linaro-7.5-2019.12.tar.xz && \
-  tar xvf gcc-linaro-7.5-2019.12
+  tar xvf gcc-linaro-7.5-2019.12.tar.zx
   mkdir -p ${HOME}/tmp/gcc-linaro-7.5-2019.12/build
   if [ -d /usr/local/linaro ]; then 
     cd ${HOME}/tmp/gcc-linaro-7.5-2019.12/build && \
