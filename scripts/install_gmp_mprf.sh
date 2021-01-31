@@ -7,9 +7,12 @@
 # ftp://gcc.gnu.org/pub/gcc/infrastructure/
 #
 rm -rf ${HOME}/tmp/linaro && mkdir -p ${HOME}/tmp/linaro && cd ${HOME}/tmp/linaro
-aria2c -x6 ftp://gcc.gnu.org/pub/gcc/infrastructure/gmp-6.1.0.tar.bz2
-aria2c -x6 ftp://gcc.gnu.org/pub/gcc/infrastructure/mpfr-3.1.4.tar.bz2
-aria2c -x6 ftp://gcc.gnu.org/pub/gcc/infrastructure/mpc-1.0.3.tar.gz
+# GMP in https://ftp.gnu.org/gnu/gmp/
+aria2c -x6 https://ftp.gnu.org/gnu/gmp/gmp-6.1.0.tar.bz2
+# MPFR in https://ftp.gnu.org/gnu/mpfr/
+aria2c -x6 https://ftp.gnu.org/gnu/mpfr/mpfr-3.1.4.tar.bz2
+# MPC in https://ftp.gnu.org/gnu/mpc/
+aria2c -x6 https://ftp.gnu.org/gnu/mpc/mpc-1.0.3.tar.gz
 
 # install GMP 6.1.0
 tar xvf ${HOME}/tmp/linaro/gmp-6.1.0.tar.bz2 && cd ${HOME}/tmp/linaro/gmp-6.1.0 
