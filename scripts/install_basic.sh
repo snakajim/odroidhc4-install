@@ -6,6 +6,10 @@
 #
 # install several tools by apt-get
 #
+apt-get full-upgrade -y
+apt-get install -y git curl
+curl -sSL https://get.docker.com | sh
+usermod -aG docker $USER
 apt-get install -y default-jre default-jdk
 apt-get install -y curl cmake ninja-build z3 sudo
 apt-get install -y autoconf flex bison apt-utils
@@ -74,11 +78,13 @@ systemctl restart sshd
 # you can replace "user0" to your favorite user account later.
 #
 useradd -m user0 && passwd -d user0 && \
-usermod -aG wheel user0 && \
+usermod -aG wheel user0 && usermod -aG docker user0
 gpasswd -a user0 sudo && chsh -s /bin/bash user0
 mkdir -p /home/user0/tmp && mkdir -p /home/user0/work && mkdir -p /home/user0/.ssh
 touch /home/user0/.ssh/authorized_keys
 chown -R user0:user0 /home/user0
 echo "# Privilege specification for user0" >> /etc/sudoers
 echo "user0    ALL=NOPASSWD: ALL" >> /etc/sudoers
+apt-get autoremove -y
+apt-get clean
 reboot
