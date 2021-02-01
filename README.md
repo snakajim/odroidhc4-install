@@ -43,9 +43,11 @@ Login in as accountmngr with password you set during Ubuntu installation. First 
 accountmngr@hc4armkk: sudo apt-get update -y
 accountmngr@hc4armkk: sudo apt-get install -y  build-essential git
 accountmngr@hc4armkk: sudo dpkg-reconfigure keyboard-configuration
+accountmngr@hc4armkk: sudo sh -c "echo "hc4armkk" > /etc/hostname"
+accountmngr@hc4armkk: sudo reboot
 ```
 
-Then let's run basic install script.
+Then log-in again and let's run install_basic.sh script.
 ```
 accountmngr@hc4armkk: mkdir -p ~/tmp && cd ~/tmp 
 accountmngr@hc4armkk: git clone https://github.com/snakajim/odroidhc4-install
@@ -58,6 +60,7 @@ The script installs and sets basic environment for HC4.
 - install basic apps used for build, such as cmake/java/pip3/ninja/aria2/z3, etc..
 - avahi-daemon enabled, your hostname "hc4armkk" is accesable from local.
 - at-daemon(atd) enabled.
+- docker daemon enabled.
 - user account "user0" is created with sudo authority. 
 
 Some application does not recommend to install as root, so let's switch login account to "user0" and continue.
@@ -101,7 +104,7 @@ SSH login as accountmngr@hc4armkk and add the public key to authorized key list 
 ```
 accountmngr@hc4armkk:~$ sudo sh -c "cp <your_public_key> /home/user0/.ssh/<your_public_key> && cat <your_public_key> >> /home/user0/.ssh/authorized_keys"
 accountmngr@hc4armkk:~$ sudo chown -R user0:user0 /home/user0 
-accountmngr@hc4armkk:~$ reboot
+accountmngr@hc4armkk:~$ sudo reboot
 ```
 
 To make easy access from your remote development environment such as Microsoft VS Code, Teraterm or PuTTY, it is nice idea to modify ssh configulation file which is usually stored in ${HOME}/.ssh/config
