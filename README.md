@@ -42,6 +42,7 @@ Login in as accountmngr with password you set during Ubuntu installation. First 
 ```
 accountmngr@hc4armkk: sudo apt-get update -y
 accountmngr@hc4armkk: sudo apt-get install -y  build-essential git
+accountmngr@hc4armkk: sudo dpkg-reconfigure keyboard-configuration
 ```
 
 Then let's run basic install script.

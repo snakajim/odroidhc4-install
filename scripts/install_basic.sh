@@ -7,6 +7,11 @@
 # install several tools by apt-get
 #
 #apt-get full-upgrade -y
+iam=`echo ${USER}`
+if [ $iam != "root" ]; then
+  echo "i am not root, please exec me in root."
+  exit
+fi
 apt-get install -y default-jre default-jdk
 apt-get install -y curl cmake ninja-build z3 sudo
 apt-get install -y autoconf flex bison apt-utils
