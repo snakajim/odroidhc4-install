@@ -12,8 +12,8 @@ run_dir=${PWD}
 # ACL with gcc
 #/usr/bin/time -ao out.log echo "ahoge" >& out.log
 
-export CXX="/usr/bin/g++-7"
-export CC="/usr/bin/gcc-7"
+export CXX="/usr/bin/g++-8"
+export CC="/usr/bin/gcc-8"
 
 ./install_acl.sh >& ./install_acl.gcc.log
 

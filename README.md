@@ -147,7 +147,7 @@ user0@hc4armkk:~$ echo "./run_user0.sh > /dev/null 2>&1" | at now
 
 #### 4-a-1. building ACL
 
-There is build issue with default compiler gcc (Ubuntu 9.3.0-17ubuntu1~20.04) 9.3.0. You need to change gcc-7 or clang-11.01. To utilzie v8.2A NEON feature, plese do not forget to set "arch=arm64-v8.2-a" and "neon=1" in scons args. Installation may take 5-6 hours.
+There is a build issue with default compiler gcc. You need to change gcc-7/gcc-8 or clang-11.01. To utilzie v8.2A NEON feature, plese do not forget to set "arch=arm64-v8.2-a" and "neon=1" in scons args. Installation may take 5-6 hours.
 ```
 user0@hc4armkk: cd odroidhc4-install/scripts && source ./install_acl.sh
 ```
@@ -191,7 +191,7 @@ export LD_LIBRARY_PATH=${PWD}/..:$LD_LIBRARY_PATH && \
 
 ### 4-b. Install LLVM1101(clang/clang++/libcxx/libcxxabi/lld/openmp) on aarch64 linux
 
-There is build issue with default compiler gcc (Ubuntu 9.3.0-17ubuntu1~20.04) 9.3.0. You need to change gcc-7 to build. Installation may take 5 hours. After install llvm, recommend to reboot.
+There is a build issue with default compiler gcc. You need to change gcc-7/gcc-8 or clang-11.01. LLVM build may take 5 hours. After install llvm, recommend to reboot.
 
 ```
 user0@hc4armkk:~$ cd odroidhc4-install/scripts && source ./install_llvm.sh
@@ -202,10 +202,8 @@ Or if you need lld-11 only,
 user0@hc4armkk:~$ cd odroidhc4-install/scripts && source ./install_lld.sh
 ```
 
-You can simply symbolically link "ld.lld" as standard "ld" under /usr/bin, or parse "-fuse-ld=lld" at link time. This is done by ./install_lld.sh.
 
-
-To enable clang/lld after install, set env params. Note "lld" is install as "ld.lld" in Linux. 
+To enable clang/lld after install, set env params. Note "lld" is sometimes installed as "ld.lld" in Linux. 
 ```
 user0@hc4armkk:~$ export LLVM_DIR=/usr/local/llvm_1101
 user0@hc4armkk:~$ export PATH=$LLVM_DIR/bin:$PATH

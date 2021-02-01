@@ -6,7 +6,7 @@
 #
 # install several tools by apt-get
 #
-apt-get full-upgrade -y
+#apt-get full-upgrade -y
 apt-get install -y default-jre default-jdk
 apt-get install -y curl cmake ninja-build z3 sudo
 apt-get install -y autoconf flex bison apt-utils
@@ -19,8 +19,8 @@ apt-get install -y avahi-daemon firewalld
 apt-get install -y scons libomp-dev evince time
 apt-get install -y gcc-7 g++-7
 apt-get install -y gcc-8 g++-8
-apt-get install -y gcc-10 g++-10
 apt-get install -y docker.io
+apt-get install -y docker-compose
 gpasswd -a $USER docker
 chmod 666 /var/run/docker.sock
 #
@@ -88,5 +88,8 @@ echo "# Privilege specification for user0" >> /etc/sudoers
 echo "user0    ALL=NOPASSWD: ALL" >> /etc/sudoers
 apt-get autoremove -y
 apt-get clean
+echo "Set system time timedatectl to Asia/Tokyo."
+timedatectl set-timezone Asia/Tokyo --no-ask-password
+#echo "hc4armkk" > /etc/hostname
 echo "install_basic.sh completed, system reboot."
 reboot

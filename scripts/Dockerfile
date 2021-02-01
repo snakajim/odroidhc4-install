@@ -38,6 +38,7 @@ RUN mkdir -p /root/tmp && \
   sed -e 's/\r//' -i /root/tmp/odroidhc4-install/scripts/*.sh
 # disable system command which docker cannot support.
 RUN sed -e 's/^systemctl/#systemctl/g' -i /root/tmp/odroidhc4-install/scripts/install_basic.sh
+RUN sed -e 's/^timedatectl/#timedatectl/g' -i /root/tmp/odroidhc4-install/scripts/install_basic.sh
 RUN sed -e 's/^firewall-cmd/#firewall-cmd/g' -i /root/tmp/odroidhc4-install/scripts/install_basic.sh
 RUN sed -e 's/^reboot/#reboot/g' -i /root/tmp/odroidhc4-install/scripts/install_basic.sh
 RUN sed -e 's/.*docker/#&/g' -i /root/tmp/odroidhc4-install/scripts/install_basic.sh

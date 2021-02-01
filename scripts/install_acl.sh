@@ -11,7 +11,7 @@ source ${HOME}/.bashrc
 #
 ACL_ROOT_DIR=${HOME}/work
 
-# Get Force scon using clang or gcc-7. 
+# Get Force scon using clang or gcc-8. 
 #
 if [ $ARCH = "x86_64" ]; then
   echo "Cross compile on x86_64 linux system."
@@ -25,8 +25,8 @@ else
     isDefault=1
   else
     echo "Default compiler is not set, cpp=$CXX, cc=$CC" 
-    export CXX="/usr/bin/g++-7"
-    export CC="/usr/bin/gcc-7"
+    export CXX="/usr/bin/g++-8"
+    export CC="/usr/bin/gcc-8"
     echo "Forcing compiler to cpp=$CXX and cc=$CC."
     isDefault=0
   fi
