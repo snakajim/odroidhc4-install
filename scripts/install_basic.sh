@@ -28,6 +28,7 @@ apt-get install -y docker.io
 apt-get install -y docker-compose
 gpasswd -a $USER docker
 chmod 666 /var/run/docker.sock
+sleep 10
 #
 # addgroup wheel and grant sudo authority
 #
@@ -40,16 +41,24 @@ sed -i -E \
 # enable avahi-daemon and firewall for mDNS
 systemctl start  avahi-daemon
 systemctl enable avahi-daemon
+systemctl daemon-reload
+sleep 10
 firewall-cmd --add-service=mdns  --permanent
 firewall-cmd --reload
+systemctl daemon-reload
+sleep 10
 
 # enable at daemon
 systemctl start atd
 systemctl enable atd
+systemctl daemon-reload
+sleep 10
 
 # set CLI as default
 systemctl set-default multi-user.target
 #systemctl set-default graphical.target
+systemctl daemon-reload
+sleep 10
 
 # install gnu mailutils in CLI
 #cd /usr/local/src && \
@@ -65,6 +74,8 @@ systemctl set-default multi-user.target
 sed -i 's/^#PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config
 sed -i 's/^#X11DisplayOffset 10/X11DisplayOffset 10/' /etc/ssh/sshd_config
 systemctl restart sshd
+systemctl daemon-reload
+sleep 10
 
 #
 # Change thermal point, this settind does not work. Waiting for fix.
@@ -81,20 +92,25 @@ systemctl restart sshd
 # add "user0" without passward.
 # you can replace "user0" to your favorite user account later.
 #
-useradd -m user0 && passwd -d user0
-gpasswd -a user0 wheel
-gpasswd -a user0 docker
-gpasswd -a user0 sudo
-chsh -s /bin/bash user0
+grep user0 /etc/passwd
+ret=$?
+if [ $ret -eq 1 ]; then
+  useradd -m user0 && passwd -d user0
+  gpasswd -a user0 wheel
+  gpasswd -a user0 docker
+  gpasswd -a user0 sudo
+  chsh -s /bin/bash user0
+  echo "# Privilege specification for user0" >> /etc/sudoers
+  echo "user0    ALL=NOPASSWD: ALL" >> /etc/sudoers
+fi
 mkdir -p /home/user0/tmp && mkdir -p /home/user0/work && mkdir -p /home/user0/.ssh
 touch /home/user0/.ssh/authorized_keys
 chown -R user0:user0 /home/user0
-echo "# Privilege specification for user0" >> /etc/sudoers
-echo "user0    ALL=NOPASSWD: ALL" >> /etc/sudoers
 apt-get autoremove -y
 apt-get clean
 echo "Set system time timedatectl to Asia/Tokyo."
 timedatectl set-timezone Asia/Tokyo --no-ask-password
 #echo "hc4armkk" > /etc/hostname
 echo "install_basic.sh completed, system reboot."
+sleep 20
 reboot
