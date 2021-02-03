@@ -20,7 +20,7 @@ apt-get install -y openssh-server x11-apps at
 apt-get install -y xserver-xorg xterm telnet
 apt-get install -y unzip htop gettext aria2
 apt-get install -y locales-all cpanminus
-apt-get install -y avahi-daemon firewalld
+apt-get install -y avahi-daemon firewalld avahi-utils
 apt-get install -y scons libomp-dev evince time
 apt-get install -y gcc-7 g++-7
 apt-get install -y gcc-8 g++-8
@@ -51,6 +51,11 @@ sleep 10
 # enable at daemon
 systemctl start atd
 systemctl enable atd
+systemctl daemon-reload
+sleep 10
+
+# enable docker.service
+systemctl enable docker.service
 systemctl daemon-reload
 sleep 10
 

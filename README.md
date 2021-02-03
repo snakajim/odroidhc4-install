@@ -282,8 +282,6 @@ Docker private registry service is using docker registry contaier provided by do
 
 - https://hub.docker.com/_/registry/
 
-https://www.itmedia.co.jp/enterprise/articles/1708/10/news052_3.html
-
 Coming soon...
 
 ### 6-c. Testing to push/pull
