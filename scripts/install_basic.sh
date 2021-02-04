@@ -41,7 +41,6 @@ sed -i -E \
 # enable avahi-daemon and firewall for mDNS
 systemctl start  avahi-daemon
 systemctl enable avahi-daemon
-systemctl daemon-reload
 sleep 10
 firewall-cmd --add-service=mdns  --permanent
 firewall-cmd --reload
@@ -51,18 +50,15 @@ sleep 10
 # enable at daemon
 systemctl start atd
 systemctl enable atd
-systemctl daemon-reload
 sleep 10
 
 # enable docker.service
 systemctl enable docker.service
-systemctl daemon-reload
 sleep 10
 
 # set CLI as default
 systemctl set-default multi-user.target
 #systemctl set-default graphical.target
-systemctl daemon-reload
 sleep 10
 
 # install gnu mailutils in CLI
@@ -79,7 +75,6 @@ sleep 10
 sed -i 's/^#PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config
 sed -i 's/^#X11DisplayOffset 10/X11DisplayOffset 10/' /etc/ssh/sshd_config
 systemctl restart sshd
-systemctl daemon-reload
 sleep 10
 
 #
