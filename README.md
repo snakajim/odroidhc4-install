@@ -56,7 +56,7 @@ accountmngr@hc4armkk: chmod +x * && sudo sh -c ./install_basic.sh
 ```
 
 The script installs and sets basic environment for HC4.
-- install gcc-7,8 and 10. Default tool chain is gcc-9.
+- install gcc-7,8 and 10. Using gcc-8 as build tool.
 - install basic apps used for build, such as cmake/java/pip3/ninja/aria2/z3, etc..
 - avahi-daemon enabled, your hostname "hc4armkk" is accesable from local.
 - at-daemon(atd) enabled.
@@ -151,7 +151,7 @@ user0@hc4armkk:~$ echo "./run_user0.sh > /dev/null 2>&1" | at now
 
 #### 4-a-1. building ACL
 
-There is a build issue with default compiler gcc. You need to change gcc-7/gcc-8 or clang-11.01. To utilzie v8.2A NEON feature, plese do not forget to set "arch=arm64-v8.2-a" and "neon=1" in scons args. Installation may take 5-6 hours.
+There is a build issue with default compiler gcc. You need to change to gcc-8 or clang-11.01. To utilzie v8.2A NEON feature, plese do not forget to set "arch=arm64-v8.2-a" and "neon=1" in scons args. Installation may take 5-6 hours.
 ```
 user0@hc4armkk: cd odroidhc4-install/scripts && source ./install_acl.sh
 ```
@@ -171,11 +171,11 @@ And if you rush to compile, x86_64 cross compile is the way.
 
 |env     | tool chain                           | user time(min) | ratio |
 |--------|--------------------------------------|----------------|-------|
-|native  | gcc-7 + ld                           | 288            |1.00   |
+|native  | gcc-8 + ld                           | 288            |1.00   |
 |native  | clang-11 + lld-11                    | 377            |1.30   |
-|native  | gcc-7 + lld-11                       | 288            |1.00   |
+|native  | gcc-8 + lld-11                       | 288            |1.00   |
 |cross(*)| aarch64-none-linux-gnu-g++-10.2      | 79             |0.27   |
-|native-RPi4-4G Ubuntu20.04  | gcc-7 + ld       | 237            |0.82   |
+|native-RPi4-4G Ubuntu20.04  | gcc-8 + ld       | 237            |0.82   |
 |native-RPi4-4G Ubuntu20.04  | clang-11 + lld-11| 312            |1.08   |
     
 (*) CentOS7 Docker container on Windows 10 Pro, assigning Core i5 v-CPUx4. You can access same version of cross compiler from here.
@@ -195,7 +195,7 @@ export LD_LIBRARY_PATH=${PWD}/..:$LD_LIBRARY_PATH && \
 
 ### 4-b. Install LLVM1101(clang/clang++/libcxx/libcxxabi/lld/openmp) on aarch64 linux
 
-There is a build issue with default compiler gcc. You need to change gcc-7/gcc-8 or clang-11.01. LLVM build may take 5 hours. After install llvm, recommend to reboot.
+There is a build issue with default compiler gcc. You need to change to gcc-8 or clang-11.01. LLVM build may take 5 hours. After install llvm, recommend to reboot.
 
 ```
 user0@hc4armkk:~$ cd odroidhc4-install/scripts && source ./install_llvm.sh
