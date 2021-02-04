@@ -3,8 +3,12 @@
 # Download and install GMP(>4.2). MPRF(>2.4.0) and MPC(>0.8.0) to compile linaro gcc-7.
 # https://releases.linaro.org/components/toolchain/gcc-linaro/latest-7/
 #
+# WARNING:
+# Most of cases, you don't need to install GMP.MPRF and MPC from source. 
+# This script is only for backup purpose only.
+#
 # source from  
-# ftp://gcc.gnu.org/pub/gcc/infrastructure/
+# https://ftp.gnu.org/gnu/
 #
 rm -rf ${HOME}/tmp/linaro && mkdir -p ${HOME}/tmp/linaro && cd ${HOME}/tmp/linaro
 # GMP in https://ftp.gnu.org/gnu/gmp/
