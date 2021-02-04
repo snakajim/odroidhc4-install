@@ -15,8 +15,8 @@ if [ $CLANG_VERSION -eq "110001" ]; then
   exit
 fi
 
-export CXX="/usr/bin/g++-7"
-export CC="/usr/bin/gcc-7"
+export CXX="/usr/bin/g++-8"
+export CC="/usr/bin/gcc-8"
 
 cd ${HOME}/tmp && rm -rf llvm*
 

@@ -4,8 +4,8 @@
 # How to run:
 # $> \time -ao install_lld.log ./install_lld.sh >& install_lld.log &
 #
-export CXX="/usr/bin/g++-7"
-export CC="/usr/bin/gcc-7"
+export CXX="/usr/bin/g++-8"
+export CC="/usr/bin/gcc-8"
 
 cd ${HOME}/tmp && rm -rf llvm*
 
