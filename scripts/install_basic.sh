@@ -116,8 +116,10 @@ touch /home/user0/.ssh/authorized_keys
 chown -R user0:user0 /home/user0
 apt-get autoremove -y
 apt-get clean
+#
 echo "Set system time timedatectl to Asia/Tokyo."
 timedatectl set-timezone Asia/Tokyo --no-ask-password
+# check hw type and rename hostname
 hwinfo | grep odroid-arm64
 ret=$?
 if [ $ret -eq 0 ]; then
@@ -125,6 +127,7 @@ if [ $ret -eq 0 ]; then
   echo "hc4armkk" > /etc/hostname
   sleep 10
 fi
+# check hw type and rename hostname
 hwinfo | grep raspberrypi-
 ret=$?
 if [ $ret -eq 0 ]; then
@@ -132,6 +135,7 @@ if [ $ret -eq 0 ]; then
   echo "rpi4armkk" > /etc/hostname
   sleep 10
 fi
+#
 echo "install_basic.sh completed, system reboot."
 sleep 10
 reboot

@@ -44,9 +44,11 @@ if [ ! -d $ACL_ROOT_DIR/llvm ]; then
   mkdir -p $ACL_ROOT_DIR/llvm
 fi
 
-if [ -f $LLVM_DIR/bin/clang ] && [ $isDefault -eq "0" ]; then
-  export CXX="$LLVM_DIR/bin/clang++"
-  export CC="$LLVM_DIR/bin/clang"
+which clang
+ret=$?
+if [ $ret -eq 0 ] && [ $isDefault -eq "0" ]; then
+  export CXX=`which clang++`
+  export CC=`which clang`
   cd $ACL_ROOT_DIR/llvm
   if [ ! -d $ACL_ROOT_DIR/llvm/ComputeLibrary ]; then
     git clone https://github.com/ARM-software/ComputeLibrary.git -b v20.11
