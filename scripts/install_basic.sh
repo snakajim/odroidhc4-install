@@ -47,6 +47,14 @@ firewall-cmd --reload
 systemctl daemon-reload
 sleep 10
 
+# install gnu mailutils in CLI, mail command is required for at and atd.
+cd /usr/local/src && \
+aria2c -x10 https://ftp.gnu.org/gnu/mailutils/mailutils-3.11.1.tar.gz && \
+tar -zxvf mailutils-3.11.1.tar.gz && cd mailutils-3.11.1 && \
+./configure --prefix=/usr/local/mailutils && make -j4 && make install
+echo "export PATH=/usr/local/mailutils/bin:\$PATH" >>  ${HOME}/.bashrc
+echo "export PATH=/usr/local/mailutils/bin:\$PATH" >>  /etc/skel/.bashrc
+
 # enable at daemon
 systemctl start atd
 systemctl enable atd

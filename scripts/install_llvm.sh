@@ -82,13 +82,15 @@ if [ $ret -eq 1 ]; then
   echo "export PATH=\$LLVM_DIR/bin:\$PATH" >>  ${HOME}/.bashrc
   echo "export LIBRARY_PATH=\$LLVM_DIR/lib:\$LIBRARY_PATH" >>  ${HOME}/.bashrc
   echo "export LD_LIBRARY_PATH=\$LLVM_DIR/lib:\$LD_LIBRARY_PATH" >>  ${HOME}/.bashrc
-fi
+  sudo ldconfig -v
 
-sudo ldconfig -v
-
-if [ -f /usr/local/llvm_1101/bin/lld ]; then
-  sudo rm /usr/bin/ld
-  sudo ln -s /usr/local/llvm_1101/bin/lld /usr/bin/ld
+  if [ -f /usr/local/llvm_1101/bin/lld ]; then
+    sudo rm /usr/bin/ld
+    sudo ln -s /usr/local/llvm_1101/bin/lld /usr/bin/ld
+  else
+    echo "Error : lld not found under /usr/local/llvm_1101/bin/"
+    echo "Error : Please check if your llvm build is ok."
+  fi
 fi
 
 echo "LLVM compile & install done"
