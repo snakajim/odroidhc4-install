@@ -6,7 +6,7 @@
 #
 # install several tools by apt-get
 #
-#apt-get full-upgrade -y
+apt-get upgrade -y
 iam=`echo ${USER}`
 if [ $iam != "root" ]; then
   echo "i am not root, please exec me in root."
@@ -21,7 +21,7 @@ apt-get install -y xserver-xorg xterm telnet
 apt-get install -y unzip htop gettext aria2
 apt-get install -y locales-all cpanminus
 apt-get install -y avahi-daemon firewalld avahi-utils
-apt-get install -y scons libomp-dev evince time
+apt-get install -y scons libomp-dev evince time hwinfo
 apt-get install -y gcc-7 g++-7
 apt-get install -y gcc-8 g++-8
 apt-get install -y docker.io
@@ -118,7 +118,20 @@ apt-get autoremove -y
 apt-get clean
 echo "Set system time timedatectl to Asia/Tokyo."
 timedatectl set-timezone Asia/Tokyo --no-ask-password
-#echo "hc4armkk" > /etc/hostname
+hwinfo | grep odroid-arm64
+ret=$?
+if [ $ret -eq 0 ]; then
+  echo "odroid-hc4 is detected."
+  echo "hc4armkk" > /etc/hostname
+  sleep 10
+fi
+hwinfo | grep raspberrypi-
+ret=$?
+if [ $ret -eq 0 ]; then
+  echo "raspberrypi is detected."
+  echo "rpi4armkk" > /etc/hostname
+  sleep 10
+fi
 echo "install_basic.sh completed, system reboot."
-sleep 20
+sleep 10
 reboot

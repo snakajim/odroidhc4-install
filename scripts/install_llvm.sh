@@ -93,4 +93,17 @@ if [ $ret -eq 1 ]; then
   fi
 fi
 
+# ------------------------
+# check your clang version
+# ------------------------
+CLANG_VERSION=$(/usr/local/llvm_1101/bin/clang --version | awk 'NR<2 { print $3 }' | awk -F. '{printf "%2d%02d%02d", $1,$2,$3}')
+if [ $CLANG_VERSION -eq "110001" ]; then
+  echo "You have LLVM-11.0.1."
+  echo "Conguraturations."
+else
+  echo "ERROR: Some issues in script. LLVM-11.01 was not successfully built."
+  echo "ERROR: Please check log again..."
+  exit
+fi
+
 echo "LLVM compile & install done"
