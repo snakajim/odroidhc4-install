@@ -76,6 +76,11 @@ if [ $ret -eq 0 ] && [ $isDefault -eq "0" ]; then
   echo $txt_insert >> ./SConstruct 
   txt_insert="    env.Append(LINKFLAGS = ['-fuse-lld'])"
   echo "$txt_insert" >> ./SConstruct 
+
+  # case.4
+  # replace -std=gnu++11 to -stdlib=libc++
+  sed -e 's/-std=gnu/-stdlib=libc/' -i ./SConstruct
+
 else
   echo "setting ${CXX} as \$CXX"
   cd $ACL_ROOT_DIR/gcc/ComputeLibrary

@@ -82,7 +82,6 @@ if [ $ret -eq 1 ]; then
   echo "export PATH=\$LLVM_DIR/bin:\$PATH" >>  ${HOME}/.bashrc
   echo "export LIBRARY_PATH=\$LLVM_DIR/lib:\$LIBRARY_PATH" >>  ${HOME}/.bashrc
   echo "export LD_LIBRARY_PATH=\$LLVM_DIR/lib:\$LD_LIBRARY_PATH" >>  ${HOME}/.bashrc
-  sudo ldconfig -v
 
   if [ -f /usr/local/llvm_1101/bin/lld ]; then
     sudo rm /usr/bin/ld
@@ -93,9 +92,11 @@ if [ $ret -eq 1 ]; then
   fi
 fi
 
-# ------------------------
-# check your clang version
-# ------------------------
+# ------------------------------------------------------
+# Refresh your shell and check your clang version again
+# ------------------------------------------------------
+exec $SHELL -l
+sudo ldconfig -v
 CLANG_VERSION=$(/usr/local/llvm_1101/bin/clang --version | awk 'NR<2 { print $3 }' | awk -F. '{printf "%2d%02d%02d", $1,$2,$3}')
 if [ $CLANG_VERSION -eq "110001" ]; then
   echo "You have LLVM-11.0.1."
