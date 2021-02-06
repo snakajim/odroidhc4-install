@@ -21,7 +21,7 @@ export CC="/usr/bin/gcc-8"
 cd $run_dir
 ./install_llvm.sh >& ./install_llvm.log 
 #source ${HOME}/.bashrc
-exec $SHELL -l
+#exec $SHELL -l
 
 # ACL with LLVM
 cd $run_dir
