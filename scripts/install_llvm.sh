@@ -101,8 +101,8 @@ if [ $CLANG_VERSION -eq "110001" ]; then
   echo "You have LLVM-11.0.1."
   echo "Conguraturations."
 else
-  echo "ERROR: Some issues in script. LLVM-11.01 was not successfully built."
-  echo "ERROR: Please check log again..."
+  echo "ERROR: Some issues. LLVM-11.01 was not successfully built."
+  echo "ERROR: Please check build log..."
   exit
 fi
 

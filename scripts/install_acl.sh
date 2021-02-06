@@ -47,14 +47,14 @@ fi
 which clang
 ret=$?
 if [ $ret -eq 0 ] && [ $isDefault -eq "0" ]; then
+  echo "LLVM-clang is found in your system, switching to clang as building tool."
   export CXX=`which clang++`
   export CC=`which clang`
+  echo "setting ${CXX} as \$CXX"
   cd $ACL_ROOT_DIR/llvm
   if [ ! -d $ACL_ROOT_DIR/llvm/ComputeLibrary ]; then
     git clone https://github.com/ARM-software/ComputeLibrary.git -b v20.11
   fi
-  echo "LLVM is found in your system, so switchin to clang as building tool."
-  echo "setting ${CXX} as \$CXX"
   cd $ACL_ROOT_DIR/llvm/ComputeLibrary
 
   # patch in ComputeLibrary/SConstruct
