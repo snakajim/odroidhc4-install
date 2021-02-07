@@ -83,23 +83,24 @@ make clean
 #
 grep LLVM_DIR ${HOME}/.bashrc
 ret=$?
-if [ $ret -eq 1 ]; then
+if [ $ret -eq 1 ] && [ -d /usr/local/llvm_1101/bin ]; then
+  echo "Updating ${HOME}/.bashrc"
   echo "# " >> ${HOME}/.bashrc
   echo "# LLVM setting for binary and LD_ & LIBRARY_PATH" >> ${HOME}/.bashrc
   echo "export LLVM_DIR=/usr/local/llvm_1101">> ${HOME}/.bashrc
   echo "export PATH=\$LLVM_DIR/bin:\$PATH" >>  ${HOME}/.bashrc
   echo "export LIBRARY_PATH=\$LLVM_DIR/lib:\$LIBRARY_PATH" >>  ${HOME}/.bashrc
   echo "export LD_LIBRARY_PATH=\$LLVM_DIR/lib:\$LD_LIBRARY_PATH" >>  ${HOME}/.bashrc
+fi
 
-  if [ -f /usr/local/llvm_1101/bin/lld ]; then
-    sudo rm /usr/bin/ld
-    sudo ln -s /usr/local/llvm_1101/bin/lld /usr/bin/ld
-    echo "/usr/bin/ld is replaced by lld(symbolic link)."
-  else
-    echo "ERROR : lld not found under /usr/local/llvm_1101/bin/"
-    echo "ERROR : Please check if your llvm build is ok. Program exit."
-    exit
-  fi
+if [ -f /usr/local/llvm_1101/bin/lld ]; then
+  sudo rm /usr/bin/ld
+  sudo ln -s /usr/local/llvm_1101/bin/lld /usr/bin/ld
+  echo "/usr/bin/ld is replaced by lld(symbolic link)."
+else
+  echo "ERROR : lld not found under /usr/local/llvm_1101/bin/"
+  echo "ERROR : Please check if your llvm build is ok. Program exit."
+  exit
 fi
 
 # ------------------------------------------------------
