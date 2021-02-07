@@ -86,7 +86,7 @@ else
   cd $ACL_ROOT_DIR/gcc/ComputeLibrary
 fi
 
-# case.4 
+# common change to both gcc & llvm
 # To enable dptprod, replacing 
 # elif 'v8.2-a' in env['arch']:
 #      env.Append(CXXFLAGS = ['-march=armv8.2-a+fp16'])

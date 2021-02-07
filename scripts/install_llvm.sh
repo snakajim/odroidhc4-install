@@ -8,17 +8,25 @@
 # ------------------------
 # check your clang version
 # ------------------------
-CLANG_VERSION=$(clang --version | awk 'NR<2 { print $3 }' | awk -F. '{printf "%2d%02d%02d", $1,$2,$3}')
-if [ $CLANG_VERSION -eq "110001" ]; then
-  echo "You have already had LLVM-11.0.1."
-  echo "Skip installation."
-  exit
+which clang
+ret=$?
+if [ $ret -eq 0 ]; then
+  CLANG_VERSION=$(clang --version | awk 'NR<2 { print $3 }' | awk -F. '{printf "%2d%02d%02d", $1,$2,$3}')
+  if [ $CLANG_VERSION -eq "110001" ]; then
+    echo "You have already had LLVM-11.0.1."
+    echo "Skip installation. Program exit."
+    exit
+  else
+    echo "You have already had LLVM clang but it is not target version=$CLANG_VERSION."
+    echo "Proceed LLVM-11.0.1 install."
+  fi
+else
+  echo "LLVM-clang is not found in your system."
+  echo "Proceed LLVM-11.0.1 install."
 fi
 
 export CXX="/usr/bin/g++-8"
 export CC="/usr/bin/gcc-8"
-
-cd ${HOME}/tmp && rm -rf llvm*
 
 # ---------------------------
 # Confirm which OS you are in 
@@ -89,7 +97,7 @@ if [ $ret -eq 1 ]; then
     echo "/usr/bin/ld is replaced by lld(symbolic link)."
   else
     echo "ERROR : lld not found under /usr/local/llvm_1101/bin/"
-    echo "ERROR : Please check if your llvm build is ok."
+    echo "ERROR : Please check if your llvm build is ok. Program exit."
     exit
   fi
 fi
@@ -101,12 +109,14 @@ exec $SHELL -l
 sudo ldconfig -v
 CLANG_VERSION=$(/usr/local/llvm_1101/bin/clang --version | awk 'NR<2 { print $3 }' | awk -F. '{printf "%2d%02d%02d", $1,$2,$3}')
 if [ $CLANG_VERSION -eq "110001" ]; then
-  echo "You have LLVM-11.0.1."
+  echo "You have LLVM-11.0.1 under /usr/local/llvm_1101/."
   echo "Conguraturations."
-  echo "LLVM compile & install done"
+  echo "LLVM compile & install done."
+  date
   exit
 else
   echo "ERROR: Some issues. LLVM-11.01 was not successfully built."
-  echo "ERROR: Please check build log..."
+  echo "ERROR: Please check build log. Program exit"
+  date
   exit
 fi
