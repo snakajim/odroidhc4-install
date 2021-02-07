@@ -10,8 +10,8 @@
 # ------------------------
 CLANG_VERSION=$(clang --version | awk 'NR<2 { print $3 }' | awk -F. '{printf "%2d%02d%02d", $1,$2,$3}')
 if [ $CLANG_VERSION -eq "110001" ]; then
-  echo "you have already had LLVM-11.0.1."
-  echo "skip installation."
+  echo "You have already had LLVM-11.0.1."
+  echo "Skip installation."
   exit
 fi
 
@@ -86,9 +86,11 @@ if [ $ret -eq 1 ]; then
   if [ -f /usr/local/llvm_1101/bin/lld ]; then
     sudo rm /usr/bin/ld
     sudo ln -s /usr/local/llvm_1101/bin/lld /usr/bin/ld
+    echo "/usr/bin/ld is replaced by lld(symbolic link)."
   else
-    echo "Error : lld not found under /usr/local/llvm_1101/bin/"
-    echo "Error : Please check if your llvm build is ok."
+    echo "ERROR : lld not found under /usr/local/llvm_1101/bin/"
+    echo "ERROR : Please check if your llvm build is ok."
+    exit
   fi
 fi
 
@@ -101,10 +103,10 @@ CLANG_VERSION=$(/usr/local/llvm_1101/bin/clang --version | awk 'NR<2 { print $3 
 if [ $CLANG_VERSION -eq "110001" ]; then
   echo "You have LLVM-11.0.1."
   echo "Conguraturations."
+  echo "LLVM compile & install done"
+  exit
 else
   echo "ERROR: Some issues. LLVM-11.01 was not successfully built."
   echo "ERROR: Please check build log..."
   exit
 fi
-
-echo "LLVM compile & install done"
