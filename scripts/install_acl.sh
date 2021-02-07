@@ -79,7 +79,13 @@ if [ $ret -eq 0 ] && [ $isDefault -eq "0" ]; then
 
   # case.4
   # replace '-std=gnu++11' to '-std=gnu++11','-stdlib=libc++'
-  sed -e "s/'-std=gnu++11'/'-std=gnu++11','-stdlib=libc++'/" -i ./SConstruct
+  grep -e "-stdlib=libc++" ./SConstruct
+  ret=$?
+  if [ $ret -eq 0 ]; then
+    echo "skip patch case.4"
+  else
+    sed -e "s/'-std=gnu++11'/'-std=gnu++11','-stdlib=libc++'/" -i ./SConstruct
+  fi
 
 else
   echo "setting ${CXX} as \$CXX"
