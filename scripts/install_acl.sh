@@ -10,7 +10,7 @@ source ${HOME}/.bashrc
 
 # Downlaod and install
 #
-ACL_ROOT_DIR=${HOME}/work
+ACL_ROOT_DIR=${HOME}/workCPU=`nproc --all`
 
 # Get Force scon using clang or gcc-8. 
 #
