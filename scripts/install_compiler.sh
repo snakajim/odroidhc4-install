@@ -18,6 +18,13 @@ if [ $ARCH = "x86_64" ]; then
   aria2c -x6 https://developer.arm.com/-/media/Files/downloads/gnu-rm/10-2020q4/gcc-arm-none-eabi-10-2020-q4-major-x86_64-linux.tar.bz2
   sudo sh -c "cd /usr/local && tar vxf ${HOME}/tmp/gcc-arm-none-eabi-10-2020-q4-major-x86_64-linux.tar.bz2"
   
+  echo "x86_64 host linux to install Cortex-R/M profile bare-metal arm cross compiler."
+  cd ${HOME}/tmp && rm -rf DS500-BN-00026-r5p0-17rel0.tgz && \
+  aria2c -x6 -o DS500-BN-00026-r5p0-17rel0.tgz \
+  "https://developer.arm.com/-/media/Files/downloads/compiler/DS500-BN-00026-r5p0-17rel0.tgz"
+  cd ${HOME}/tmp && tar -zxvf DS500-BN-00026-r5p0-17rel0.tgz
+  sudo sh -c "cd ${HOME}/tmp && ./install_x86_64.sh --i-agree-to-the-contained-eula --no-interactive -d /usr/local/acc615"
+  
   #
   # set path
   #
@@ -35,7 +42,15 @@ if [ $ARCH = "x86_64" ]; then
       echo "# x86_64 host linux to install Cortex-R/M profile bare-metal cross compiler." >> .bashrc
       echo "export PATH=\$PATH:/usr/local/gcc-arm-none-eabi-10-2020-q4-major/bin" >> .bashrc
   fi
-
+  grep "acc615" ${HOME}/.bashrc
+  ret=$?
+  if [ $ret -eq 1 ]; then 
+    cd ${HOME} && \
+      echo "# x86_64 host linux to install Cortex-R/M profile bare-metal arm cross compiler." >> ${HOME}/.bashrc
+      echo "export ARMC6_PATH=/usr/local/acc615/bin" >> ${HOME}/.bashrc
+      echo "export PATH=\$PATH:\$ARMC6_PATH" >> ${HOME}/.bashrc
+  fi
+  
 else
   echo "Aarch64 host linux to install Cortex-R/M profile bare-metal compiler."
   cd ${HOME}/tmp && rm -rf gcc-arm-none-eabi-10* && \
