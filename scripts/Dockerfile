@@ -59,6 +59,9 @@ RUN sudo -u user0 sh -c "\${HOME}/work/scripts/install_compiler.sh"
 # (optional) run install_llvm.sh to install llvm-11 as user0
 RUN sudo -u user0 sh -c "\${HOME}/work/scripts/install_llvm.sh"
 
+# (optional) run install_acl.sh to compile ACL v20.11 as user0
+RUN sudo -u user0 sh -c "\${HOME}/work/scripts/install_acl.sh"
+
 #  ---------------------------------------------------------------------------------
 # reset container
 #  ---------------------------------------------------------------------------------
