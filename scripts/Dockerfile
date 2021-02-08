@@ -40,7 +40,7 @@ RUN mkdir -p /root/tmp && \
 RUN sed -e 's/^systemctl/#systemctl/g' -i /root/tmp/odroidhc4-install/scripts/install_basic.sh
 RUN sed -e 's/^timedatectl/#timedatectl/g' -i /root/tmp/odroidhc4-install/scripts/install_basic.sh
 RUN sed -e 's/^firewall-cmd/#firewall-cmd/g' -i /root/tmp/odroidhc4-install/scripts/install_basic.sh
-RUN sed -e 's/^reboot/#reboot/g' -i /root/tmp/odroidhc4-install/scripts/install_basic.sh
+RUN sed -e 's/.*reboot/#&/g' -i /root/tmp/odroidhc4-install/scripts/install_basic.sh
 RUN sed -e 's/.*docker/#&/g' -i /root/tmp/odroidhc4-install/scripts/install_basic.sh
 RUN sed -e 's/.*reboot/#&/g' -i /root/tmp/odroidhc4-install/scripts/run_user0.sh
 # adding X86 in llvm target
