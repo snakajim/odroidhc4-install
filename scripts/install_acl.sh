@@ -119,3 +119,20 @@ else
   echo "end ACL build at ${PWD}"
 fi
 date
+# start disasm
+statics="${PWD}/build/*.a"
+  for filepath in $statics; do
+    echo "disassemble $filepath start."
+    disasms=`echo $filepath | sed -e "s/\.a/\.disasm/g"`
+    if [ $ARCH = "x86_64" ]; then
+      aarch64-linux-gnu-objdump -d --architecture=aarch64 $statics > $disasms
+      #llvm-objdump -d --arch=armv8.2-a $statics > $disasms
+    else
+      objdump -d --architecture=aarch64 $statics > $disasms
+      #llvm-objdump -d --arch=armv8.2-a $statics > $disasms
+    fi
+  done
+echo "disassemble done. Please find ComputeLibrary/buid/*.disasm files."
+
+#
+echo "end of script."
