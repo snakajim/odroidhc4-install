@@ -5,6 +5,7 @@
 # $> \time -ao install_acl.log ./install_acl.sh >& install_acl.log &
 #
 ARCH=`arch`
+CPU=`nproc --all`
 source ${HOME}/.bashrc
 
 # Downlaod and install
@@ -110,11 +111,11 @@ echo "start ACL build at ${PWD}"
 date
 if [ $ARCH = "x86_64" ]; then 
   /usr/bin/time -av sh -c \
-    "scons Werror=0 debug=0 asserts=0 arch=arm64-v8.2-a os=linux neon=1 opencl=1 examples=1 pmu=1 benchmark_tests=1 -j4"
+    "scons Werror=0 debug=0 asserts=0 arch=arm64-v8.2-a os=linux neon=1 opencl=1 examples=1 pmu=1 benchmark_tests=1 -j${CPU}"
   echo "end ACL build at ${PWD}"
 else
   /usr/bin/time -av sh -c \
-    "scons Werror=0 debug=0 asserts=0 arch=arm64-v8.2-a os=linux neon=1 opencl=1 examples=1 build=native pmu=1 benchmark_tests=1 -j4"
+    "scons Werror=0 debug=0 asserts=0 arch=arm64-v8.2-a os=linux neon=1 opencl=1 examples=1 build=native pmu=1 benchmark_tests=1 -j${CPU}"
   echo "end ACL build at ${PWD}"
 fi
 date
