@@ -132,7 +132,7 @@ statics="${PWD}/build/*.a"
       #llvm-objdump -d --arch=armv8.2-a $statics > $disasms
     fi
   done
-echo "disassemble done. Please find ComputeLibrary/buid/*.disasm files."
+echo "disassemble done. Please find ComputeLibrary/build/*.disasm files."
 
 #
 echo "end of script."

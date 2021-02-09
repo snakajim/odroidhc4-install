@@ -25,6 +25,12 @@ if [ $ARCH = "x86_64" ]; then
   cd ${HOME}/tmp && tar -zxvf DS500-BN-00026-r5p0-17rel0.tgz
   sudo sh -c "cd ${HOME}/tmp && ./install_x86_64.sh --i-agree-to-the-contained-eula --no-interactive -d /usr/local/acc615"
   
+  echo "If you are missing the latest aarch64-linux-gnu in your linux distribution package, for example CENTOS7 users, use binary from linaro."
+  cd ${HOME}/tmp && rm -rf gcc-linaro-7.5.0-2019.12-x86_64_aarch64-linux-gnu.tar.xz && \
+  aria2c -x6 -o gcc-linaro-7.5.0-2019.12-x86_64_aarch64-linux-gnu.tar.xz \
+  "https://releases.linaro.org/components/toolchain/binaries/latest-7/aarch64-linux-gnu/gcc-linaro-7.5.0-2019.12-x86_64_aarch64-linux-gnu.tar.xz" \
+  sudo sh -c "cd /usr/local && tar vxf ${HOME}/tmp/gcc-linaro-7.5.0-2019.12-x86_64_aarch64-linux-gnu.tar.xz"
+
   #
   # set path
   #
@@ -32,15 +38,15 @@ if [ $ARCH = "x86_64" ]; then
   ret=$?
   if [ $ret -eq 1 ]; then 
     cd ${HOME} && \
-      echo "# x86_64 host linux to install Aarch64 bare-metal cross compiler." >> .bashrc
-      echo "export PATH=\$PATH:/usr/local/gcc-arm-10.2-2020.11-x86_64-aarch64-none-linux-gnu/bin" >> .bashrc
+      echo "# x86_64 host linux to install Aarch64 bare-metal cross compiler." >> ${HOME}/.bashrc
+      echo "export PATH=\$PATH:/usr/local/gcc-arm-10.2-2020.11-x86_64-aarch64-none-linux-gnu/bin" >> ${HOME}/.bashrc
   fi
   grep "gcc-arm-none-eabi" ${HOME}/.bashrc
   ret=$?
   if [ $ret -eq 1 ]; then 
     cd ${HOME} && \
-      echo "# x86_64 host linux to install Cortex-R/M profile bare-metal cross compiler." >> .bashrc
-      echo "export PATH=\$PATH:/usr/local/gcc-arm-none-eabi-10-2020-q4-major/bin" >> .bashrc
+      echo "# x86_64 host linux to install Cortex-R/M profile bare-metal cross compiler." >> ${HOME}/.bashrc
+      echo "export PATH=\$PATH:/usr/local/gcc-arm-none-eabi-10-2020-q4-major/bin" >> ${HOME}/.bashrc
   fi
   grep "acc615" ${HOME}/.bashrc
   ret=$?
@@ -50,7 +56,14 @@ if [ $ARCH = "x86_64" ]; then
       echo "export ARMC6_PATH=/usr/local/acc615/bin" >> ${HOME}/.bashrc
       echo "export PATH=\$PATH:\$ARMC6_PATH" >> ${HOME}/.bashrc
   fi
-  
+  grep "aarch64-linux-gnu" ${HOME}/.bashrc
+  ret=$?
+  if [ $ret -eq 1 ]; then 
+    cd ${HOME} && \
+      echo "# x86_64 host linux to install linaro aarch64-linux-gnu compiler." >> ${HOME}/.bashrc
+      echo "export GCC_LINARO_PATH=/usr/local/gcc-linaro-7.5.0-2019.12-x86_64_aarch64-linux-gnu/bin/aarch64-linux-gnu-g++/bin" >> ${HOME}/.bashrc
+      echo "export PATH=\$PATH:\$GCC_LINARO_PATH" >> ${HOME}/.bashrc
+  fi
 else
   echo "Aarch64 host linux to install Cortex-R/M profile bare-metal compiler."
   cd ${HOME}/tmp && rm -rf gcc-arm-none-eabi-10* && \
