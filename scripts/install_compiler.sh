@@ -25,7 +25,7 @@ if [ $ARCH = "x86_64" ]; then
   cd ${HOME}/tmp && tar -zxvf DS500-BN-00026-r5p0-17rel0.tgz
   sudo sh -c "cd ${HOME}/tmp && ./install_x86_64.sh --i-agree-to-the-contained-eula --no-interactive -d /usr/local/acc615"
   
-  echo "If you are missing the latest aarch64-linux-gnu in your linux distribution package, for example CENTOS7 users, use binary from linaro."
+  echo "If you cannot find the latest aarch64-linux-gnu(ver.7 or later) in your distribution package, for example CENTOS7 users, use binary from linaro."
   cd ${HOME}/tmp && rm -rf gcc-linaro-7.5.0-2019.12-x86_64_aarch64-linux-gnu.tar.xz && \
   aria2c -x6 -o gcc-linaro-7.5.0-2019.12-x86_64_aarch64-linux-gnu.tar.xz \
   "https://releases.linaro.org/components/toolchain/binaries/latest-7/aarch64-linux-gnu/gcc-linaro-7.5.0-2019.12-x86_64_aarch64-linux-gnu.tar.xz" \
@@ -76,8 +76,8 @@ else
   ret=$?
   if [ $ret -eq 1 ]; then 
     cd ${HOME} && \
-      echo "# Aarch64 host linux to install Cortex-R/M profile bare-metal cross compiler." >> .bashrc
-      echo "export PATH=\$PATH:/usr/local/gcc-arm-none-eabi-10-2020-q4-major/bin" >> .bashrc
+      echo "# Aarch64 host linux to install Cortex-R/M profile bare-metal cross compiler." >> ${HOME}/.bashrc
+      echo "export PATH=\$PATH:/usr/local/gcc-arm-none-eabi-10-2020-q4-major/bin" >> ${HOME}/.bashrc
   fi
 fi
 
