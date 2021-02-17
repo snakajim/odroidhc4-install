@@ -101,6 +101,6 @@ print("-----------------------------------")
 #   DESC    : description
 #   VARIANT : arch_variant.name:
 #
-with open('armv8_isa_table.yaml', 'w') as file:
+with open('armv8_isa_table.yml', 'w') as file:
     yaml.dump(isa_key_list, file)
 print("---------Program end --------------")
