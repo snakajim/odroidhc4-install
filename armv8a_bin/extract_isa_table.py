@@ -18,6 +18,18 @@ tree = ET.parse('onebigfile.xml')
 root = tree.getroot()
 
 #
+# header
+#
+header_list = "#\n"
+header_list = header_list + "# Arm v8A instruction set quick reference table\n"
+header_list = header_list + "#   This is auto generated from public Arm ISA Reference Manual(xml) version 2020-12.\n"
+header_list = header_list + "#   - https://developer.arm.com/-/media/developer/products/architecture/armv8-a-architecture/2020-12/A64_ISA_xml_v87A-2020-12.tar.gz\n"
+header_list = header_list + "#\n"
+header_list = header_list + "# This table is intended only to assist the reader in the use of arm v8a product.\n"
+header_list = header_list + "# To see the original definition of Arm v8A ISA, please refer Arm ISA Reference Manual but not in this table.\n"
+header_list = header_list + "#\n"
+print(header_list)
+#
 # instructionsection -> iclass -> arch_variant
 #
 
