@@ -16,6 +16,7 @@ if [ ! -f ${work_dir}/onebigfile.xml ] &&  [ ! -f ${work_dir}/armv8_isa_table.ym
   else
     cp ${work_dir}/xml/ISA_A64_xml_v87A-2020-12/onebigfile.xml ${work_dir}/
     rm -rf ${work_dir}/xml/*
+    chmod +x ${work_dir}/onebigfile.xml 
     echo "Extracting onebigfile.xml is done."
   fi
 else
