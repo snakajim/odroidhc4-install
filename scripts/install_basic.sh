@@ -135,6 +135,14 @@ if [ $ret -eq 0 ]; then
   echo "rpi4armkk" > /etc/hostname
   sleep 10
 fi
+# check hw type and rename hostname
+hwinfo | grep Khadas
+ret=$?
+if [ $ret -eq 0 ]; then
+  echo "Khadas is detected."
+  echo "Khadasarmkk" > /etc/hostname
+  sleep 10
+fi
 #
 echo "install_basic.sh completed, system reboot."
 sleep 10
