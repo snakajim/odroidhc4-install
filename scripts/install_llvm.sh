@@ -55,7 +55,7 @@ unxz llvm-project-11.0.1.src.tar.xz && tar xf llvm-project-11.0.1.src.tar && \
   cd llvm-project-11.0.1.src && mkdir -p build && cd build
 echo "start LLVM1101 build"
 date
-if [ $OSNOW = "UBUNTU" ]; then 
+if [ $OSNOW = "UBUNTU" ] ||  [ $OSNOW = "DEBIAN" ]; then 
   cmake -G Ninja -G "Unix Makefiles"\
     -DCMAKE_C_COMPILER=$CC \
     -DCMAKE_CXX_COMPILER=$CXX \
