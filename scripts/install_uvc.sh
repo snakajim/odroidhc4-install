@@ -27,5 +27,5 @@ fi
 # 2. Install viewers 
 ##
 sudo apt-get install -y guvcview uvccapture fswebcam
-sudo sh -c "usermod -aG video user0"
+sudo sh -c "gpasswd -a user0 video"
 #
