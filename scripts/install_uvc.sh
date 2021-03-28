@@ -8,7 +8,7 @@
 #   $> export DISPLAY=192.168.2.101:0.0
 #
 # This script has been tested on
-#   - KHADAS VIM3 Pro Ubuntu 20 server LTS 
+#   - KHADAS VIM3 Pro Debian server 5.9 rc2 
 
 ## 
 # 1. check you have USB cam. This script is tested with "Logitech, Inc. Webcam C270"
