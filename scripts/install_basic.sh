@@ -120,7 +120,7 @@ apt-get clean
 echo "Set system time timedatectl to Asia/Tokyo."
 timedatectl set-timezone Asia/Tokyo --no-ask-password
 # check hw type and rename hostname
-hwinfo | grep odroid-arm64
+/sbin/hwinfo | grep -i odroid-arm64
 ret=$?
 if [ $ret -eq 0 ]; then
   echo "odroid-hc4 is detected."
@@ -128,7 +128,7 @@ if [ $ret -eq 0 ]; then
   sleep 10
 fi
 # check hw type and rename hostname
-hwinfo | grep raspberrypi-
+/sbn/hwinfo | grep -i raspberrypi-
 ret=$?
 if [ $ret -eq 0 ]; then
   echo "raspberrypi is detected."
@@ -136,7 +136,7 @@ if [ $ret -eq 0 ]; then
   sleep 10
 fi
 # check hw type and rename hostname
-hwinfo | grep Khadas
+/sbin/hwinfo | grep -i khadas
 ret=$?
 if [ $ret -eq 0 ]; then
   echo "Khadas is detected."
