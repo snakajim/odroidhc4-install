@@ -16,7 +16,9 @@
 lsusb | grep "Webcam C270"
 ret=$?
 if [ $ret -eq 0 ]; then
-  echo "Webcam is detected."
+  echo "Webcam is detected. Resolution list is,"
+  cameraid=`lsusb | grep "Webcam C270" | awk -F ":" '{print $1}' | awk '{print $2 ":" $4}'`
+  lsusb -s ${cameraid} -v | grep -1 Width
   sleep 1
 else
   echo "Webcam is not delected. Please confirm USB camera connectivity."
