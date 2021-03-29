@@ -26,8 +26,22 @@ else
 fi
 
 ##
-# 2. Install viewers 
+# 2. Enable VNC remote access from Host. 
+#    GUI remote connect via VNC 
 ##
-sudo apt-get install -y guvcview uvccapture fswebcam
+sudo apt-get install -y xrdp task-gnome-desktop # remote desktop conenct is recommended.
+sudo apt-get install solaar solaar-gnome3
+sudo service xrdp restart
+# enable GUI
+#sudo systemctl set-default graphical.target
+#sudo reboot
+# disable GUI
+#sudo systemctl set-default multi-user.target
+#sudo reboot
+
+##
+# 3. Install viewers 
+##
+sudo apt-get install -y guvcview uvccapture uvcdynctrl fswebcam v4l-utils
 sudo sh -c "gpasswd -a user0 video"
 #
