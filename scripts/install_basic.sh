@@ -24,10 +24,10 @@ apt-get install -y avahi-daemon firewalld avahi-utils
 apt-get install -y scons libomp-dev evince time hwinfo
 apt-get install -y gcc-7 g++-7
 apt-get install -y gcc-8 g++-8
-apt-get install -y docker.io
-apt-get install -y docker-compose
-gpasswd -a $USER docker
-chmod 666 /var/run/docker.sock
+#apt-get install -y docker.io
+#apt-get install -y docker-compose
+#gpasswd -a $USER docker
+#chmod 666 /var/run/docker.sock
 sleep 10
 #
 # addgroup wheel and grant sudo authority
@@ -61,26 +61,20 @@ systemctl enable atd
 sleep 10
 
 # enable docker.service
-systemctl enable docker.service
-sleep 10
+#systemctl start docker.service
+#systemctl enable docker.service
+#sleep 10
 
 # set CLI as default
 systemctl set-default multi-user.target
 #systemctl set-default graphical.target
 sleep 10
 
-# install gnu mailutils in CLI
-#cd /usr/local/src && \
-#aria2c -x10 https://ftp.gnu.org/gnu/mailutils/mailutils-3.11.1.tar.gz && \
-#tar -zxvf mailutils-3.11.1.tar.gz && cd mailutils-3.11.1 && \
-#./configure --prefix=/usr/local/mailutils && make -j4 && make install
-#echo "export PATH=/usr/local/mailutils/bin:\$PATH" >>  ${HOME}/.bashrc
-#echo "export PATH=/usr/local/mailutils/bin:\$PATH" >>  /etc/skel/.bashrc
-
 # Change sshd_config file
 # SSH poicy is as root login.
 #
 sed -i 's/^#PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config
+sed -i 's/^#PermitEmptyPasswords no/PermitEmptyPasswords yes/' /etc/ssh/sshd_config
 sed -i 's/^#X11DisplayOffset 10/X11DisplayOffset 10/' /etc/ssh/sshd_config
 systemctl restart sshd
 sleep 10
@@ -103,10 +97,11 @@ sleep 10
 grep user0 /etc/passwd
 ret=$?
 if [ $ret -eq 1 ]; then
-  useradd -m user0 && passwd -d user0
+  useradd -m user0
+  passwd -d user0
   sed -i 's/nullok_secure/nullok/' /etc/pam.d/common-auth
   gpasswd -a user0 wheel
-  gpasswd -a user0 docker
+  #gpasswd -a user0 docker
   gpasswd -a user0 sudo
   chsh -s /bin/bash user0
   echo "# Privilege specification for user0" >> /etc/sudoers
