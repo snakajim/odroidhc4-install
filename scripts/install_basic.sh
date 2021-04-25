@@ -104,12 +104,14 @@ grep user0 /etc/passwd
 ret=$?
 if [ $ret -eq 1 ]; then
   useradd -m user0 && passwd -d user0
+  sed -i 's/nullok_secure/nullok/' /etc/pam.d/common-auth
   gpasswd -a user0 wheel
   gpasswd -a user0 docker
   gpasswd -a user0 sudo
   chsh -s /bin/bash user0
   echo "# Privilege specification for user0" >> /etc/sudoers
   echo "user0    ALL=NOPASSWD: ALL" >> /etc/sudoers
+  sed -i 's/^# auth       sufficient pam_wheel.so trust/auth       sufficient pam_wheel.so trust group=wheel/' /etc/pam.d/su
 fi
 mkdir -p /home/user0/tmp && mkdir -p /home/user0/work && mkdir -p /home/user0/.ssh
 touch /home/user0/.ssh/authorized_keys
@@ -128,19 +130,11 @@ if [ $ret -eq 0 ]; then
   sleep 10
 fi
 # check hw type and rename hostname
-/sbn/hwinfo | grep -i raspberrypi-
+/sbin/hwinfo | grep -i raspberrypi-
 ret=$?
 if [ $ret -eq 0 ]; then
   echo "raspberrypi is detected."
   echo "rpi4armkk" > /etc/hostname
-  sleep 10
-fi
-# check hw type and rename hostname
-/sbin/hwinfo | grep -i khadas
-ret=$?
-if [ $ret -eq 0 ]; then
-  echo "Khadas is detected."
-  echo "Khadasarmkk" > /etc/hostname
   sleep 10
 fi
 #
